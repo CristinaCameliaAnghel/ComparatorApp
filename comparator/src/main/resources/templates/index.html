@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> <!-- nav menu -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"> </div>
+<h1>Selectați o opțiune:</h1>
+<a th:href="@{/utilitati}"><button>Utilitati</button></a>
+<a th:href="@{/servicii}"><button>Servicii</button></a>
+
+<div th:replace="~{fragments/footer :: footer}"> </div>
+</body>
+</html>
