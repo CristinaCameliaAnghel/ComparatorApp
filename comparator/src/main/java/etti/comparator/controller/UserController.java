@@ -1,9 +1,13 @@
 package etti.comparator.controller;
 
 import java.security.Principal;
+import java.util.List;
 
+import etti.comparator.model.Service;
+import etti.comparator.repositories.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ServicesRepository servicesRepository;
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -50,12 +56,9 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("admin-page")
-    public String adminPage (Model model, Principal principal) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", userDetails);
-        return "admin";
-    }
+
+
+
 
 
     }

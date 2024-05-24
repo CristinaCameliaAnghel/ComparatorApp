@@ -5,41 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0e2433;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            background-color: #45b6fe;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            margin: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #0e2433;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        h2 {
-            color: #45b6fe;
-        }
-
-        /* Add more styles and components for your dashboard here */
-    </style>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="header">
@@ -49,13 +16,53 @@
     <h2>Welcome, [[${user.getFullname()}]]</h2>
 
     <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">
-         Logout
-
-        </a>
-
+        <a th:href="@{/logout}">Logout</a>
         </span>
 
 </div>
+
+<h3> Service list</h3>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="service: ${services}">
+            <td th:text="${service.id}"></td>
+            <td th:text="${service.name}"></td>
+
+        </tbody>
+    </table>
+</div>
+
+<h3> Utility list</h3>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="utility: ${utilities}">
+            <td th:text="${utility.id}"></td>
+            <td th:text="${utility.name}"></td>
+
+
+        </tbody>
+
+
+    </table>
+</div>
+
 </body>
 </html>
