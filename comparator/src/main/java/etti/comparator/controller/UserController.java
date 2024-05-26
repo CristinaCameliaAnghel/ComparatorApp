@@ -1,13 +1,9 @@
 package etti.comparator.controller;
 
 import java.security.Principal;
-import java.util.List;
 
-import etti.comparator.model.Service;
 import etti.comparator.repositories.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -16,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import etti.comparator.dto.UserDto;
 import etti.comparator.service.UserService;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
 public class UserController {

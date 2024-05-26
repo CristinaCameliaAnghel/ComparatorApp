@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Spring MVC</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
 </head>
+<style>
+    /* Footer Styles */
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
 <body>
-<footer class="footer mt-auto py-3" th:fragment="footer">
-    <div class="container">
-        <span class="text-muted">Example footer.</span>
-    </div>
-</footer>
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    <p>
+        <a href="/privacy-policy">Privacy Policy</a> |
+        <a href="/terms-of-service">Terms of Service</a> |
+        <a href="/contact">Contact</a>
+    </p>
+</div>
 </body>
 </html>
