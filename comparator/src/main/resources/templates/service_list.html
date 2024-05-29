@@ -8,36 +8,41 @@
 <div class="container">
     <h1>Service List</h1>
     <h2 th:if="${selectedName != null}" th:text="'Selected Service: ' + ${selectedName}"></h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Online Booking Availability</th>
-            <th>Estimated Duration</th>
-            <th>Required Equipment</th>
-            <th>Guarantee</th>
-            <th>Approved/Certified/Licensed</th>
-            <th>Feedback Stars</th>
-            <th>Geographic Coverage</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="serviceDetails : ${serviceDetailsList}">
-            <td th:text="${serviceDetails.id}"></td>
-            <td th:text="${serviceDetails.name}"></td>
-            <td th:text="${serviceDetails.price}"></td>
-            <td th:text="${serviceDetails.onlineBookingAvailability}"></td>
-            <td th:text="${serviceDetails.estimatedDuration}"></td>
-            <td th:text="${serviceDetails.requiredEquipment}"></td>
-            <td th:text="${serviceDetails.guarantee}"></td>
-            <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
-            <td th:text="${serviceDetails.feedbackStars}"></td>
-            <td th:text="${serviceDetails.geographicCoverage}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <form action="/compare-services" method="get">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Online Booking Availability</th>
+                <th>Estimated Duration</th>
+                <th>Required Equipment</th>
+                <th>Guarantee</th>
+                <th>Approved/Certified/Licensed</th>
+                <th>Feedback Stars</th>
+                <th>Geographic Coverage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="serviceDetails : ${serviceDetailsList}">
+                <td><input type="checkbox" name="selectedServices" th:value="${serviceDetails.id}"></td>
+                <td th:text="${serviceDetails.id}"></td>
+                <td th:text="${serviceDetails.name}"></td>
+                <td th:text="${serviceDetails.price}"></td>
+                <td th:text="${serviceDetails.onlineBookingAvailability}"></td>
+                <td th:text="${serviceDetails.estimatedDuration}"></td>
+                <td th:text="${serviceDetails.requiredEquipment}"></td>
+                <td th:text="${serviceDetails.guarantee}"></td>
+                <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
+                <td th:text="${serviceDetails.feedbackStars}"></td>
+                <td th:text="${serviceDetails.geographicCoverage}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-success">Compara</button>
+    </form>
 </div>
 </body>
 </html>

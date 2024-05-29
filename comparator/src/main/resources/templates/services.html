@@ -19,9 +19,9 @@
     <div class="row">
         <div class="col-6" th:each="service : ${services}">
             <form action="/service-list" method="get">
-        <input type="hidden" name="name" th:value="${service.name}">
-        <button type="submit" th:text="${service.name}" class="btn btn-primary"></button>
-        </form>
+                <input type="hidden" name="name" th:value="${service.name}">
+                <button type="submit" th:text="${service.name}" class="btn btn-primary"></button>
+            </form>
         </div>
     </div>
 </div>

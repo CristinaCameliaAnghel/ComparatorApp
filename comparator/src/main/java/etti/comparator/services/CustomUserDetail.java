@@ -1,4 +1,4 @@
-package etti.comparator.service;
+package etti.comparator.services;
 
 import java.util.Collection;
 import java.util.List;

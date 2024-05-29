@@ -1,7 +1,7 @@
 package etti.comparator.Configurations;
 
-import etti.comparator.service.CustomSuccessHandler;
-import etti.comparator.service.CustomUserDetailsService;
+import etti.comparator.services.CustomSuccessHandler;
+import etti.comparator.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request.requestMatchers("/admin-page")
                         .hasAuthority("ADMIN").requestMatchers("/user-page").hasAuthority("USER")
                         .requestMatchers("/registration", "/css/**", "/index","/CreateProduct", "/EditProduct",
-                                "/servicii","/products","services","/service-list","/products/create", "/products/delete", "/products/edit", "/utilitati", "/images/**").permitAll()
+                                "/servicii","/products","services","/service-list","/products/create", "/products/delete", "/products/edit","/compare-services", "/utilitati", "/images/**").permitAll()
                         .anyRequest().authenticated())
 
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")

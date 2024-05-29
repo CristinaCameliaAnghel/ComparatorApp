@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service Comparison</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .sort-arrow {
+            margin-left: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .sort-arrow.up::after {
+            content: '▲';
+        }
+        .sort-arrow.down::after {
+            content: '▼';
+        }
+        .sort-arrow.active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Service Comparison</h1>
+    <table class="table" id="serviceTable">
+        <thead>
+        <tr>
+            <th id="id">ID <span class="sort-arrow up" data-sort="id" data-direction="asc"></span><span class="sort-arrow down" data-sort="id" data-direction="desc"></span></th>
+            <th id="name">Name <span class="sort-arrow up" data-sort="name" data-direction="asc"></span><span class="sort-arrow down" data-sort="name" data-direction="desc"></span></th>
+            <th id="price">Price <span class="sort-arrow up" data-sort="price" data-direction="asc"></span><span class="sort-arrow down" data-sort="price" data-direction="desc"></span></th>
+            <th id="booking">Online Booking Availability <span class="sort-arrow up" data-sort="booking" data-direction="asc"></span><span class="sort-arrow down" data-sort="booking" data-direction="desc"></span></th>
+            <th id="duration">Estimated Duration <span class="sort-arrow up" data-sort="duration" data-direction="asc"></span><span class="sort-arrow down" data-sort="duration" data-direction="desc"></span></th>
+            <th id="equipment">Required Equipment <span class="sort-arrow up" data-sort="equipment" data-direction="asc"></span><span class="sort-arrow down" data-sort="equipment" data-direction="desc"></span></th>
+            <th id="guarantee">Guarantee <span class="sort-arrow up" data-sort="guarantee" data-direction="asc"></span><span class="sort-arrow down" data-sort="guarantee" data-direction="desc"></span></th>
+            <th id="approved">Approved/Certified/Licensed <span class="sort-arrow up" data-sort="approved" data-direction="asc"></span><span class="sort-arrow down" data-sort="approved" data-direction="desc"></span></th>
+            <th id="stars">Feedback Stars <span class="sort-arrow up" data-sort="stars" data-direction="asc"></span><span class="sort-arrow down" data-sort="stars" data-direction="desc"></span></th>
+            <th id="coverage">Geographic Coverage <span class="sort-arrow up" data-sort="coverage" data-direction="asc"></span><span class="sort-arrow down" data-sort="coverage" data-direction="desc"></span></th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="serviceDetails : ${selectedServiceDetailsList}">
+            <td th:text="${serviceDetails.id}"></td>
+            <td th:text="${serviceDetails.name}"></td>
+            <td th:text="${serviceDetails.price}"></td>
+            <td th:text="${serviceDetails.onlineBookingAvailability}"></td>
+            <td th:text="${serviceDetails.estimatedDuration}"></td>
+            <td th:text="${serviceDetails.requiredEquipment}"></td>
+            <td th:text="${serviceDetails.guarantee}"></td>
+            <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
+            <td th:text="${serviceDetails.feedbackStars}"></td>
+            <td th:text="${serviceDetails.geographicCoverage}"></td>
+            <td><button class="btn btn-primary">Aplica</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    let sortDirection = {};
+
+    $(document).ready(function(){
+        $(".sort-arrow").click(function(){
+            let column = $(this).data("sort");
+            let direction = $(this).data("direction");
+            sortTable(column, direction);
+            updateArrows(column, direction);
+        });
+    });
+
+    function sortTable(column, direction) {
+        let table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("serviceTable");
+        switching = true;
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[document.getElementById(column).cellIndex].textContent.toLowerCase();
+                y = rows[i + 1].getElementsByTagName("td")[document.getElementById(column).cellIndex].textContent.toLowerCase();
+                if (direction === "asc" ? (x > y) : (x < y)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+
+        // Update sort direction
+        sortDirection[column] = direction;
+    }
+
+    function updateArrows(column, direction) {
+        $(".sort-arrow").removeClass("active");
+        $(".sort-arrow[data-sort='" + column + "'][data-direction='" + direction + "']").addClass("active");
+    }
+</script>
+</body>
+</html>

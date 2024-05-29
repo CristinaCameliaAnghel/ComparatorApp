@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import etti.comparator.dto.UserDto;
-import etti.comparator.service.UserService;
+import etti.comparator.services.UserService;
 
 @Controller
 public class UserController {
