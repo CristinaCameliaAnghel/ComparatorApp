@@ -17,7 +17,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Autowired
     CustomSuccessHandler customSuccessHandler;
 
@@ -29,32 +28,34 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-
-        http.csrf(c -> c.disable())
-
-                .authorizeHttpRequests(request -> request.requestMatchers("/admin-page")
-                        .hasAuthority("ADMIN").requestMatchers("/user-page").hasAuthority("USER")
-                        .requestMatchers("/registration", "/css/**", "/index","/CreateProduct", "/EditProduct",
-                                "/servicii","/products","services","/service-list","/products/create", "/products/delete", "/products/edit","/compare-services", "/utilitati", "/images/**").permitAll()
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(c -> c.disable())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/admin-page").hasAuthority("ADMIN")
+                        .requestMatchers("/user-page").hasAuthority("USER")
+                        .requestMatchers("/provider-page").hasAuthority("PROVIDER")
+                        .requestMatchers("/registration", "/registrationasprovider", "/css/**", "/index", "/CreateProduct", "/EditProduct",
+                                "/servicii", "/products", "services", "/service-list", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
                         .anyRequest().authenticated())
-
-                .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
-                        .successHandler(customSuccessHandler).permitAll())
-
-                .logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .successHandler(customSuccessHandler)
+                        .permitAll())
+                .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout").permitAll());
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll());
 
         return http.build();
-
     }
 
     @Autowired
-    public void configure (AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
-
 }

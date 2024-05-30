@@ -5,14 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users") // Specificarea numelui tabelului pentru entitatea User
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -20,12 +19,9 @@ public class User {
     private String role;
     private String fullname;
 
-    public User() {
-        super();
-    }
+    public User() {}
 
     public User(String email, String password, String role, String fullname) {
-
         this.email = email;
         this.password = password;
         this.role = role;
@@ -71,14 +67,4 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
-
-
-
-
-
-
-
-
-
-
 }

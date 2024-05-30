@@ -2,6 +2,7 @@ package etti.comparator.controller;
 
 import java.security.Principal;
 
+import etti.comparator.dto.ProviderDto;
 import etti.comparator.repositories.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +51,17 @@ public class UserController {
         return "user";
     }
 
+    @GetMapping("/registrationasprovider")
+    public String getProviderRegistrationPage(@ModelAttribute("provider") ProviderDto providerDto) {
+        return "registerasprovider";
+    }
+
+    @PostMapping("/registrationasprovider")
+    public String saveProvider(@ModelAttribute("provider") ProviderDto providerDto, Model model) {
+        userService.saveProvider(providerDto);
+        model.addAttribute("message", "Provider Registered Successfully!");
+        return "registerasprovider";
+    }
 
 
 
