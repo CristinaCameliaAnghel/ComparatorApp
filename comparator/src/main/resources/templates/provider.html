@@ -1,21 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Provider Dashboard</title>
-    <!-- Includeți aici link-uri pentru CSS-ul necesar pentru stilizare -->
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
 </head>
 <body>
-<h1>Provider Dashboard</h1>
-<div>
-    <div class="container">
-        <h2>Welcome</h2>
+<div class="header">
+    <h1>Provider Dashboard</h1>
+</div>
+<div class="container">
+    <h2>Welcome, [[${user.getFullName()}]]</h2>
 
+    <span sec:authorize="isAuthenticated">
+        <a th:href="@{/logout}">
+         Logout
 
+        </a>
 
-    </div>
+        </span>
+
 </div>
 
+<!-- Tabelul cu ofertele furnizorului -->
+<h3>Service Offers</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Estimated Duration</th>
+        <th>Price</th>
+        <th>Online Booking</th>
+        <th>Feedback Stars</th>
+        <th>Geographic Coverage</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="offer : ${offers}">
+        <td th:text="${offer.name}"></td>
+        <td th:text="${offer.estimatedDuration}"></td>
+        <td th:text="${offer.price}"></td>
+        <td th:text="${offer.onlineBookingAvailability}"></td>
+        <td th:text="${offer.feedbackStars}"></td>
+        <td th:text="${offer.geographicCoverage}"></td>
+        <td th:text="${offer.description}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
 </body>
 </html>

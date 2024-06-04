@@ -19,7 +19,7 @@ public class UserController {
 
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private UserService userService;
@@ -44,7 +44,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("user-page")
+    @GetMapping("/user-page")
     public String userPage (Model model, Principal principal) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         model.addAttribute("user", userDetails);

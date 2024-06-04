@@ -21,7 +21,7 @@ import org.springframework.data.domain.Pageable;
 public class AdminController {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private ServicesRepository servicesRepository;

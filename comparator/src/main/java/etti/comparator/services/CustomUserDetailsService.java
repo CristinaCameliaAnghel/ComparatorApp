@@ -1,5 +1,6 @@
 package etti.comparator.services;
 
+import etti.comparator.exceptions.UserNotActiveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("user not found");
+        }
+        if (!user.isActive()){
+            throw new UserNotActiveException ("user is not active");
         }
 
         return new CustomUserDetail(user);

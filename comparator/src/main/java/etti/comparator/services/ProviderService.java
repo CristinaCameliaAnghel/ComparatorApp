@@ -1,7 +1,7 @@
 package etti.comparator.services;
 import etti.comparator.model.Provider;
 import etti.comparator.model.User;
-import etti.comparator.dto.ProviderDto;  // Presupunem că există un DTO pentru provider
+import etti.comparator.dto.ProviderDto;
 import etti.comparator.repositories.ProviderRepository;
 import etti.comparator.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ public class ProviderDto {
     private Long userId;
     private String email;
     private String password;
-    private String fullname;
+    private String fullName;
     private String serviceName;
     private String utilities;
     private String cif;
@@ -32,12 +32,12 @@ public class ProviderDto {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getServiceName() {

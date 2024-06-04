@@ -17,15 +17,26 @@ public class User {
     private String email;
     private String password;
     private String role;
-    private String fullname;
+    private String fullName;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    private boolean isActive;
 
     public User() {}
 
-    public User(String email, String password, String role, String fullname) {
+    public User(String email, String password, String role, String fullName) {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.fullname = fullname;
+        this.fullName = fullName;
+        this.isActive = false;
     }
 
     public Long getId() {
@@ -60,11 +71,11 @@ public class User {
         this.role = role;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
