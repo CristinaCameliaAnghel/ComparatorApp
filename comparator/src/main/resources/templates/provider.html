@@ -37,8 +37,10 @@
                     <th>Required Equipment</th>
                     <th>Guarantee</th>
                     <th>Approved Certified Licensed</th>
-                    <th>Description</th>
                     <th>Geographic Coverage</th>
+                    <th>Description</th>
+                    <th>Feedback Stars</th>
+                    <th>Registered At</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,8 +52,10 @@
                     <td th:text="${service.requiredEquipment}"></td>
                     <td th:text="${service.guarantee}"></td>
                     <td th:text="${service.approvedCertifiedLicensed}"></td>
-                    <td th:text="${service.description}"></td>
                     <td th:text="${service.geographicCoverage}"></td>
+                    <td th:text="${service.description}"></td>
+                    <td th:text="${service.feedbackStars}"></td>
+                    <td th:text="${service.registeredAt}"></td>
                 </tr>
                 </tbody>
             </table>

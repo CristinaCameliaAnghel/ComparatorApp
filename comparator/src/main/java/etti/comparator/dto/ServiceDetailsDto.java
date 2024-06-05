@@ -16,9 +16,10 @@ public class ServiceDetailsDto {
     private String approvedCertifiedLicensed;
     private int feedbackStars;
     private String geographicCoverage;
+
     @Column(columnDefinition = "TEXT")
     private String description;
-
+    private Date registeredAt;
 
     public String getName() {
         return name;
@@ -108,5 +109,11 @@ public class ServiceDetailsDto {
         this.description = description;
     }
 
+    public Date getRegisteredAt() {
+        return registeredAt;
+    }
 
+    public void setRegisteredAt(Date registeredAt) {
+        this.registeredAt = registeredAt;
+    }
 }

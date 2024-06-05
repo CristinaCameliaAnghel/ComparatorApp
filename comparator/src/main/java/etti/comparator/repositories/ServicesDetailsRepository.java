@@ -8,6 +8,5 @@ import java.util.List;
 public interface ServicesDetailsRepository extends JpaRepository<ServiceDetails, Integer> {
     List<ServiceDetails> findByName(String name);
     List<ServiceDetails> findAllByIdIn(List<Integer> ids);
-
     List<ServiceDetails> findByServiceProvider(String serviceProvider);
 }
