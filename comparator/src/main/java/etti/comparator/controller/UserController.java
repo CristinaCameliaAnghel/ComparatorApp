@@ -1,10 +1,18 @@
 package etti.comparator.controller;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import etti.comparator.Mappers.ServiceDetailsMapper;
+import etti.comparator.Mappers.UserMapper;
 import etti.comparator.dto.ProviderDto;
+import etti.comparator.dto.ServiceDetailsDto;
+import etti.comparator.model.User;
 import etti.comparator.model.UserServiceOffer;
 import etti.comparator.repositories.ServicesRepository;
+import etti.comparator.repositories.UserRepository;
+import etti.comparator.repositories.UserServiceOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +36,12 @@ public class UserController {
     @Autowired
     private ServicesRepository servicesRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserServiceOfferRepository userServiceOfferRepository;
+
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
         return "register";
@@ -46,10 +60,19 @@ public class UserController {
     }
 
     @GetMapping("/user-page")
-    public String userPage (Model model, Principal principal) {
+    public String userPage(Model model, Principal principal) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", userDetails);
+        User user = userRepository.findByEmail(principal.getName());
 
+        List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByUser(user);
+        List<ServiceDetailsDto> serviceDetailsDtoList = userServiceOffers.stream()
+                .map(UserServiceOffer::getServiceDetails)
+                .map(ServiceDetailsMapper::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("user", UserMapper.toDto(user));
+        //model.addAttribute("userServiceOffers", serviceDetailsDtoList);
+        model.addAttribute("userServiceOffers", userServiceOffers);  // Changed to userServiceOffers to include status
         return "user";
     }
 

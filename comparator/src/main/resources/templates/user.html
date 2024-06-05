@@ -39,24 +39,49 @@
             color: #45b6fe;
         }
 
-        /* Add more styles and components for your dashboard here */
+        .offer {
+            background-color: #1e3a5f;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .offer h3 {
+            margin: 0;
+            color: #45b6fe;
+        }
+
+        .offer p {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
 <div class="header">
-    <h1>USER Dashboard</h1>
+    <h1>User Dashboard</h1>
 </div>
 <div class="container">
-    <h2>Welcome, [[${user.getFullName()}]]</h2>
+    <h2>Welcome, [[${user.fullName}]]</h2>
 
     <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">
-         Logout
+        <a th:href="@{/logout}">Logout</a>
+    </span>
 
-        </a>
-
-        </span>
-
+    <h2>Your Offers</h2>
+    <div th:if="${userServiceOffers.isEmpty()}">
+        <p>You have not applied for any offers yet.</p>
+    </div>
+    <div th:each="offer : ${userServiceOffers}" class="offer">
+        <h3 th:text="${offer.serviceDetails.name}"></h3>
+        <p><strong>Provider:</strong> <span th:text="${offer.serviceDetails.serviceProvider}"></span></p>
+        <p><strong>Price:</strong> <span th:text="${offer.serviceDetails.price}"></span></p>
+        <p><strong>Duration:</strong> <span th:text="${offer.serviceDetails.estimatedDuration}"></span></p>
+        <p><strong>Booking Availability:</strong> <span th:text="${offer.serviceDetails.onlineBookingAvailability}"></span></p>
+        <p><strong>Feedback Stars:</strong> <span th:text="${offer.serviceDetails.feedbackStars}"></span></p>
+        <p><strong>Geographic Coverage:</strong> <span th:text="${offer.serviceDetails.geographicCoverage}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${offer.serviceDetails.description}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${offer.status}"></span></p>
+    </div>
 </div>
 </body>
 </html>

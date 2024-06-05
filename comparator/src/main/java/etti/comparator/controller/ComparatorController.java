@@ -43,16 +43,5 @@ public class ComparatorController {
 
         return "redirect:/user-page";
     }
-/*
-    @GetMapping("/user-offers")
-    public String userOffers(Model model, Principal principal) {
-        User user = userDetailsService.findByEmail(principal.getName());
-        List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByUser(user);
 
-        model.addAttribute("user", user);
-        model.addAttribute("userServiceOffers", userServiceOffers);
-
-        return "user-offers";
-    }
-*/
 }

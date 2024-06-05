@@ -8,6 +8,10 @@ public class UserDto {
     private String fullName;
 
 
+    public UserDto() {
+
+    }
+
     public UserDto(String email, String password, String role, String fullName) {
         super();
         this.email = email;
