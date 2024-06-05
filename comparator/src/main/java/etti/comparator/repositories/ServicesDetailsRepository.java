@@ -9,5 +9,5 @@ public interface ServicesDetailsRepository extends JpaRepository<ServiceDetails,
     List<ServiceDetails> findByName(String name);
     List<ServiceDetails> findAllByIdIn(List<Integer> ids);
 
-
+    List<ServiceDetails> findByServiceProvider(String serviceProvider);
 }

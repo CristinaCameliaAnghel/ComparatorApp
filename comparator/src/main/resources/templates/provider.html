@@ -6,52 +6,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-
+    <title>Provider Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-<div class="header">
-    <h1>Provider Dashboard</h1>
-</div>
-<div class="container">
-    <h2>Welcome, [[${user.getFullName()}]]</h2>
-
-    <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">
-         Logout
-
-        </a>
-
+<div class="container mt-4">
+    <div class="header text-center mb-4">
+        <h1>Provider Dashboard</h1>
+    </div>
+    <div class="well">
+        <h2>Welcome, <span th:text="${user.fullName}"></span></h2>
+        <span sec:authorize="isAuthenticated">
+            <a th:href="@{/logout}" class="btn btn-danger pull-right">Logout</a>
         </span>
+    </div>
 
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Your Offers</h3>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary mb-3" th:href="@{/create-serviceOffer}">Create Offer</a>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Estimated Duration</th>
+                    <th>Price</th>
+                    <th>Online Booking Availability</th>
+                    <th>Required Equipment</th>
+                    <th>Guarantee</th>
+                    <th>Approved Certified Licensed</th>
+                    <th>Description</th>
+                    <th>Geographic Coverage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="service : ${userServices}">
+                    <td th:text="${service.name}"></td>
+                    <td th:text="${service.estimatedDuration}"></td>
+                    <td th:text="${service.price}"></td>
+                    <td th:text="${service.onlineBookingAvailability}"></td>
+                    <td th:text="${service.requiredEquipment}"></td>
+                    <td th:text="${service.guarantee}"></td>
+                    <td th:text="${service.approvedCertifiedLicensed}"></td>
+                    <td th:text="${service.description}"></td>
+                    <td th:text="${service.geographicCoverage}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<!-- Tabelul cu ofertele furnizorului -->
-<h3>Service Offers</h3>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Estimated Duration</th>
-        <th>Price</th>
-        <th>Online Booking</th>
-        <th>Feedback Stars</th>
-        <th>Geographic Coverage</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="offer : ${offers}">
-        <td th:text="${offer.name}"></td>
-        <td th:text="${offer.estimatedDuration}"></td>
-        <td th:text="${offer.price}"></td>
-        <td th:text="${offer.onlineBookingAvailability}"></td>
-        <td th:text="${offer.feedbackStars}"></td>
-        <td th:text="${offer.geographicCoverage}"></td>
-        <td th:text="${offer.description}"></td>
-    </tr>
-    </tbody>
-</table>
-</div>
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

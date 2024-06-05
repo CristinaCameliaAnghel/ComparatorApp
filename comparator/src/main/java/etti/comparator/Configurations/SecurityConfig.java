@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/user-page").hasAuthority("USER")
                         .requestMatchers("/provider-page").hasAuthority("PROVIDER")
                         .requestMatchers("/registration", "/registrationasprovider", "/css/**", "/index", "/CreateProduct", "/EditProduct",
-                                "/servicii", "/products", "services", "/service-list", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
+                                "/servicii", "/products", "services", "/service-list","/serviceOffers/CreateServiceOffers", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
