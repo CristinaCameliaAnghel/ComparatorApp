@@ -1,33 +1,58 @@
 package etti.comparator.controller;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+import ch.qos.logback.core.model.Model;
+import etti.comparator.model.ServiceDetails;
+import etti.comparator.model.User;
+import etti.comparator.model.UserServiceOffer;
+import etti.comparator.repositories.UserServiceOfferRepository;
+import etti.comparator.services.CustomUserDetailsService;
+import etti.comparator.services.ServiceDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.security.Principal;
+import java.util.List;
 
-import java.util.HashMap;
-import java.util.Map;
 
-@RestController
+@Controller
 public class ComparatorController {
-    @GetMapping("/check-authentication")
-    public Map<String, Object> checkAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Map<String, Object> response = new HashMap<>();
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            response.put("isAuthenticated", true);
-            for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if ("USER".equals(authority.getAuthority())) {
-                    response.put("role", "USER");
-                    break;
-                }
-            }
-        } else {
-            response.put("isAuthenticated", false);
-        }
+    @Autowired
+    private ServiceDetailsService serviceDetailsService;
 
-        return response;
+    @Autowired
+    private UserServiceOfferRepository userServiceOfferRepository;
+
+
+
+    @PostMapping("/apply")
+    public String applyForService(@RequestParam("serviceId") int serviceId, @AuthenticationPrincipal UserDetails currentUser, Model model) {
+        User user = userDetailsService.findUserByUsername(currentUser.getUsername());
+        ServiceDetails serviceDetails = serviceDetailsService.findById(serviceId);
+
+        UserServiceOffer userServiceOffer = new UserServiceOffer();
+        userServiceOffer.setUser(user);
+        userServiceOffer.setServiceDetails(serviceDetails);
+        userServiceOfferRepository.save(userServiceOffer);
+
+        return "redirect:/user-page";
     }
+/*
+    @GetMapping("/user-offers")
+    public String userOffers(Model model, Principal principal) {
+        User user = userDetailsService.findByEmail(principal.getName());
+        List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByUser(user);
+
+        model.addAttribute("user", user);
+        model.addAttribute("userServiceOffers", userServiceOffers);
+
+        return "user-offers";
+    }
+*/
 }

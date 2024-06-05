@@ -41,6 +41,7 @@
                     <th>Description</th>
                     <th>Feedback Stars</th>
                     <th>Registered At</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,6 +57,11 @@
                     <td th:text="${service.description}"></td>
                     <td th:text="${service.feedbackStars}"></td>
                     <td th:text="${service.registeredAt}"></td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/edit-serviceOffer(id=${service.id})}">Edit</a>
+                        <a class="btn btn-danger" th:href="@{/delete-serviceOffer(id=${service.id})}"
+                           onclick="return confirm ('Are you sure?')">Delete</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

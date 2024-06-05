@@ -3,6 +3,7 @@ package etti.comparator.controller;
 import java.security.Principal;
 
 import etti.comparator.dto.ProviderDto;
+import etti.comparator.model.UserServiceOffer;
 import etti.comparator.repositories.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,6 +49,7 @@ public class UserController {
     public String userPage (Model model, Principal principal) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         model.addAttribute("user", userDetails);
+
         return "user";
     }
 

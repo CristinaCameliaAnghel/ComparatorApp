@@ -36,8 +36,8 @@ public class SecurityConfig {
                         .requestMatchers("/admin-page").hasAuthority("ADMIN")
                         .requestMatchers("/user-page").hasAuthority("USER")
                         .requestMatchers("/provider-page").hasAuthority("PROVIDER")
-                        .requestMatchers("/registration", "/registrationasprovider", "/css/**", "/index", "/CreateProduct", "/EditProduct",
-                                "/servicii", "/products", "services", "/service-list","/serviceOffers/CreateServiceOffers", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
+                        .requestMatchers("/registration","/ServicesComparator", "/registrationasprovider", "/css/**", "/index", "/CreateProduct", "/EditProduct",
+                                "/servicii", "/products", "services", "/service-list","/serviceOffers/CreateServiceOffers", "/serviceOffers/EditServiceOffers", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

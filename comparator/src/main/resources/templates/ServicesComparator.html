@@ -52,7 +52,12 @@
             <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
             <td th:text="${serviceDetails.feedbackStars}"></td>
             <td th:text="${serviceDetails.geographicCoverage}"></td>
-            <td><button class="btn btn-primary">Aplica</button></td>
+            <td>
+                <form th:action="@{/apply}" method="post">
+                    <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
+                    <button type="submit" class="btn btn-primary">Aplica</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

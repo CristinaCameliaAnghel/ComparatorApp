@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import java.util.Date;
 
 public class ServiceDetailsDto {
+
     private String name;
     private String serviceProvider;
 
