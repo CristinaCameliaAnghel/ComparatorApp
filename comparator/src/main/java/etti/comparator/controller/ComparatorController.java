@@ -42,6 +42,13 @@ public class ComparatorController {
         List<ServiceDetails> selectedServiceDetailsList = servicesDetailsRepository.findAllById(selectedServiceIds);
         model.addAttribute("selectedServiceDetailsList", selectedServiceDetailsList);
         model.addAttribute("isUserAuthenticated", authenticationService.isUserWithRole("USER"));
+
+
+        selectedServiceDetailsList.forEach(service -> {
+            List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByServiceDetails(service);
+            model.addAttribute("userServiceOffers" + service.getId(), userServiceOffers);
+        });
+
         return "ServicesComparator";
     }
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furnizori</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Lista Furnizori</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nume</th>
+            <th>Email</th>
+            <th>Active</th> <!-- Adăugarea coloanei pentru isActive -->
+            <th>Action</th> <!-- Adăugarea coloanei pentru acțiuni -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="provider : ${providers}">
+            <td th:text="${provider.id}"></td>
+            <td th:text="${provider.fullName}"></td>
+            <td th:text="${provider.email}"></td>
+            <td th:text="${provider.active ? 'Yes' : 'No'}"></td> <!-- Afișarea valorii isActive -->
+            <td>
+                <form th:action="@{/admin/approve-provider}" method="post" style="display:inline;">
+                    <input type="hidden" name="providerId" th:value="${provider.id}" />
+                    <button type="submit" class="btn btn-primary" th:disabled="${provider.active}">Aproba</button> <!-- Buton activ doar pentru isActive = false -->
+                </form>
+                <form th:action="@{/admin/block-provider}" method="post" style="display:inline;">
+                    <input type="hidden" name="providerId" th:value="${provider.id}" />
+                    <button type="submit" class="btn btn-danger" th:disabled="${!provider.active}">Blocheaza</button> <!-- Buton activ doar pentru isActive = true -->
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
