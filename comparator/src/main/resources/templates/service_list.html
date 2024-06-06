@@ -23,6 +23,7 @@
                 <th>Approved/Certified/Licensed</th>
                 <th>Feedback Stars</th>
                 <th>Geographic Coverage</th>
+                <th>Service Provider</th> <!-- Added Service Provider column header -->
             </tr>
             </thead>
             <tbody>
@@ -38,6 +39,7 @@
                 <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
                 <td th:text="${serviceDetails.feedbackStars}"></td>
                 <td th:text="${serviceDetails.geographicCoverage}"></td>
+                <td th:text="${serviceDetails.serviceProvider}"></td> <!-- Added Service Provider column -->
             </tr>
             </tbody>
         </table>

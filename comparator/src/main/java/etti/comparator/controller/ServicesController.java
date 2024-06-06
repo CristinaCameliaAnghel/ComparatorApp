@@ -41,12 +41,7 @@ public class ServicesController {
         return "service_list";
     }
 
-    @GetMapping("/compare-services")
-    public String compareServices(@RequestParam("selectedServices") List<Integer> selectedServiceIds, Model model) {
-        List<ServiceDetails> selectedServiceDetailsList = servicesDetailsRepository.findAllById(selectedServiceIds);
-        model.addAttribute("selectedServiceDetailsList", selectedServiceDetailsList);
-        return "ServicesComparator";
-    }
+
 
 
 }

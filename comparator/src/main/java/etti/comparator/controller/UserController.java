@@ -39,6 +39,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @Autowired
     private UserServiceOfferRepository userServiceOfferRepository;
 
@@ -75,6 +76,23 @@ public class UserController {
         model.addAttribute("userServiceOffers", userServiceOffers);  // Changed to userServiceOffers to include status
         return "user";
     }
+
+    @PostMapping("/submit-comment")
+    public String submitComment(@RequestParam("offerId") Long offerId, @RequestParam("comment") String comment, Principal principal) {
+        // Logic to handle saving the comment, for example:
+        // 1. Find the UserServiceOffer by ID
+        // 2. Update the offer with the new comment
+        // 3. Save the updated offer to the repository
+        User user = userRepository.findByEmail(principal.getName());
+        UserServiceOffer userServiceOffer = userServiceOfferRepository.findById(offerId).orElseThrow(() -> new RuntimeException("Offer not found"));
+
+        // Assuming you have a comments field in UserServiceOffer or similar logic
+        userServiceOffer.addComment(comment);
+        userServiceOfferRepository.save(userServiceOffer);
+
+        return "redirect:/user-page";
+    }
+
 
     @GetMapping("/registrationasprovider")
     public String getProviderRegistrationPage(@ModelAttribute("provider") ProviderDto providerDto) {

@@ -19,6 +19,10 @@
         .sort-arrow.active {
             color: red;
         }
+        .btn-disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +41,7 @@
             <th id="approved">Approved/Certified/Licensed <span class="sort-arrow up" data-sort="approved" data-direction="asc"></span><span class="sort-arrow down" data-sort="approved" data-direction="desc"></span></th>
             <th id="stars">Feedback Stars <span class="sort-arrow up" data-sort="stars" data-direction="asc"></span><span class="sort-arrow down" data-sort="stars" data-direction="desc"></span></th>
             <th id="coverage">Geographic Coverage <span class="sort-arrow up" data-sort="coverage" data-direction="asc"></span><span class="sort-arrow down" data-sort="coverage" data-direction="desc"></span></th>
+            <th id="serviceProvider">Service Provider</th> <!-- Added Service Provider column header -->
             <th>Action</th>
         </tr>
         </thead>
@@ -52,10 +57,11 @@
             <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
             <td th:text="${serviceDetails.feedbackStars}"></td>
             <td th:text="${serviceDetails.geographicCoverage}"></td>
+            <td th:text="${serviceDetails.serviceProvider}"></td> <!-- Added Service Provider column -->
             <td>
                 <form th:action="@{/apply}" method="post">
                     <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
-                    <button type="submit" class="btn btn-primary">Aplica</button>
+                    <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
                 </form>
             </td>
         </tr>

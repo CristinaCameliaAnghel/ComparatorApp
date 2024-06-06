@@ -7,17 +7,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #0e2433;
-            color: white;
+            background-color: #f8f9fa;
+            color: #333;
             margin: 0;
             padding: 0;
         }
 
         .header {
-            background-color: #45b6fe;
+            background-color: #007bff;
+            color: white;
             padding: 20px;
             text-align: center;
         }
@@ -27,32 +32,38 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #0e2433;
+            background-color: #ffffff;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        h2 {
-            color: #45b6fe;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .offer {
-            background-color: #1e3a5f;
-            padding: 10px;
-            margin: 10px 0;
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
             border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .offer h3 {
-            margin: 0;
-            color: #45b6fe;
+            margin: 0 0 10px 0;
+            color: #007bff;
         }
 
         .offer p {
             margin: 5px 0;
+        }
+
+        .modal-body {
+            background-color: #f8f9fa;
+        }
+
+        .btn-disabled {
+            pointer-events: none;
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -63,11 +74,11 @@
 <div class="container">
     <h2>Welcome, [[${user.fullName}]]</h2>
 
-    <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">Logout</a>
-    </span>
+    <div class="text-right mb-3">
+        <a class="btn btn-secondary" th:href="@{/logout}">Logout</a>
+    </div>
 
-    <h2>Your Offers</h2>
+    <h3>Your Offers</h3>
     <div th:if="${userServiceOffers.isEmpty()}">
         <p>You have not applied for any offers yet.</p>
     </div>
@@ -81,7 +92,35 @@
         <p><strong>Geographic Coverage:</strong> <span th:text="${offer.serviceDetails.geographicCoverage}"></span></p>
         <p><strong>Description:</strong> <span th:text="${offer.serviceDetails.description}"></span></p>
         <p><strong>Status:</strong> <span th:text="${offer.status}"></span></p>
+        <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
     </div>
 </div>
+
+<!-- The Modal -->
+<div th:each="offer : ${userServiceOffers}">
+    <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="commentModalLabel">Lasă un comentariu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/submit-comment}" method="post">
+                        <input type="hidden" name="offerId" th:value="${offer.id}">
+                        <div class="form-group">
+                            <label for="comment">Comentariu:</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Trimite</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

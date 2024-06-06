@@ -3,7 +3,9 @@ import ch.qos.logback.core.model.Model;
 import etti.comparator.model.ServiceDetails;
 import etti.comparator.model.User;
 import etti.comparator.model.UserServiceOffer;
+import etti.comparator.repositories.ServicesDetailsRepository;
 import etti.comparator.repositories.UserServiceOfferRepository;
+import etti.comparator.services.AuthenticationService;
 import etti.comparator.services.CustomUserDetailsService;
 import etti.comparator.services.ServiceDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,19 @@ public class ComparatorController {
     @Autowired
     private UserServiceOfferRepository userServiceOfferRepository;
 
+    @Autowired
+    private ServicesDetailsRepository servicesDetailsRepository;
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @GetMapping("/compare-services")
+    public String compareServices(@RequestParam("selectedServices") List<Integer> selectedServiceIds, org.springframework.ui.Model model) {
+        List<ServiceDetails> selectedServiceDetailsList = servicesDetailsRepository.findAllById(selectedServiceIds);
+        model.addAttribute("selectedServiceDetailsList", selectedServiceDetailsList);
+        model.addAttribute("isUserAuthenticated", authenticationService.isUserWithRole("USER"));
+        return "ServicesComparator";
+    }
 
 
     @PostMapping("/apply")
