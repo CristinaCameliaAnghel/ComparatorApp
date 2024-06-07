@@ -53,6 +53,13 @@
             <li class="nav-item" th:classappend="${activePage == 'admin/users'} ? 'active' : ''" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" th:href="@{/admin/users}">Clienti</a>
             </li>
+            <!-- Opțiuni vizibile doar pentru PROVIDER -->
+            <li class="nav-item" th:classappend="${activePage == 'provider/requests'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
+                <a class="nav-link" th:href="@{/provider/requests}">Cereri aderare</a>
+            </li>
+            <li class="nav-item" th:classappend="${activePage == 'provider/reviews'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
+                <a class="nav-link" th:href="@{/provider/reviews}">Parerile Clientilor</a>
+            </li>
         </ul>
     </div>
 </nav>

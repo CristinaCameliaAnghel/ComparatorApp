@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import etti.comparator.Mappers.UserMapper;
+import etti.comparator.dto.ServiceApplicationDto;
+import etti.comparator.dto.UserDto;
+import etti.comparator.model.UserServiceOffer;
+import etti.comparator.repositories.UserServiceOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +35,9 @@ public class ProviderController {
 
     @Autowired
     private ProviderRepository providerRepository;
+
+    @Autowired
+    private UserServiceOfferRepository userServiceOfferRepository;
 
     @GetMapping("/provider-page")
     public String providerPage(Model model) {
@@ -166,4 +174,30 @@ public class ProviderController {
         }
         return "redirect:/provider-page";
     }
+
+    @GetMapping("/provider/requests")
+    public String serviceApplications(Model model) {
+        CustomUserDetail userDetails = (CustomUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String providerName = userDetails.getFullName();
+
+        List<UserServiceOffer> serviceOffers = userServiceOfferRepository.findByServiceDetails_ServiceProvider(providerName);
+
+        List<ServiceApplicationDto> serviceApplicationDtos = serviceOffers.stream()
+                .map(UserMapper::toServiceApplicationDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("serviceApplicationDtos", serviceApplicationDtos);
+        return "ProviderDashboard/ServiceApplications";
+    }
+
+
+    @GetMapping("/updateStatus")
+    public String updateStatus(@RequestParam Long serviceApplicationId, @RequestParam String status, RedirectAttributes redirectAttributes) {
+        UserServiceOffer serviceOffer = userServiceOfferRepository.findById(serviceApplicationId).orElseThrow(() -> new IllegalArgumentException("Invalid service application Id:" + serviceApplicationId));
+        serviceOffer.setStatus(status);
+        userServiceOfferRepository.save(serviceOffer);
+        redirectAttributes.addFlashAttribute("message", "Status updated successfully!");
+        return "redirect:/provider/requests";
+    }
+
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Applications</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <h1>Service Applications</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Current Status</th>
+            <th>Change Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="serviceApplication : ${serviceApplicationDtos}">
+            <td th:text="${serviceApplication.fullName}">Full Name</td>
+            <td th:text="${serviceApplication.email}">Email</td>
+            <td th:text="${serviceApplication.phone}">Phone</td>
+            <td th:text="${serviceApplication.address}">Address</td>
+            <td th:text="${serviceApplication.description}">Description</td>
+            <td th:text="${serviceApplication.status}">Current Status</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Status
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='in asteptare')}">In asteptare</a>
+                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='in lucru')}">In lucru</a>
+                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='aprobat')}">Aprobat</a>
+                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='respins')}">Respins</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

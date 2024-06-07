@@ -12,4 +12,5 @@ import java.util.List;
 public interface UserServiceOfferRepository extends JpaRepository<UserServiceOffer, Long> {
     List<UserServiceOffer> findByUser(User user);
     List<UserServiceOffer> findByServiceDetails(ServiceDetails serviceDetails);
+    List<UserServiceOffer> findByServiceDetails_ServiceProvider(String serviceProvider);
 }
