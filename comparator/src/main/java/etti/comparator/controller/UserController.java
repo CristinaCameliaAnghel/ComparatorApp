@@ -77,7 +77,7 @@ public class UserController {
         return "user";
     }
 
-    @PostMapping("/submit-comment")
+  /*  @PostMapping("/submit-comment")
     public String submitComment(@RequestParam("offerId") Long offerId, @RequestParam("comment") String comment, Principal principal) {
         // Logic to handle saving the comment, for example:
         // 1. Find the UserServiceOffer by ID
@@ -92,7 +92,7 @@ public class UserController {
 
         return "redirect:/user-page";
     }
-
+*/
 
     @GetMapping("/registrationasprovider")
     public String getProviderRegistrationPage(@ModelAttribute("provider") ProviderDto providerDto) {

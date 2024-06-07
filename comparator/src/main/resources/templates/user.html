@@ -111,11 +111,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/submit-comment}" method="post">
+                    <form th:action="@{/comments/submit}" method="post">
                         <input type="hidden" name="offerId" th:value="${offer.id}">
                         <div class="form-group">
                             <label for="comment">Comentariu:</label>
                             <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="evaluationScore">Nota:</label>
+                            <select class="form-control" id="evaluationScore" name="evaluationScore" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Trimite</button>
                     </form>

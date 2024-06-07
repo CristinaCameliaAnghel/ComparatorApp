@@ -14,5 +14,4 @@ public class ServiceDetailsService {
         return servicesDetailsRepository.findById(id).orElse(null);
     }
 
-    
 }
