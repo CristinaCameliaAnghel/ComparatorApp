@@ -6,36 +6,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
 
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            color: #a94442;
+            border-radius: 5px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
 <div class="container">
     <div th:if="${param.error}" class="message">
         <p>O eroare a intervenit: [[${param.error}]]</p>
     </div>
 
-    <div class="message" th:if="${param.logout}"> Logout successfuly </div>
+    <div class="message" th:if="${param.logout}"> Logout successfully </div>
 
-    <h2>Login Form 1</h2>
-    <form
-            th:action="@{/login}"
-            method="post"
-    >
-
+    <h2>Login Form</h2>
+    <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username">Email:</label>
-            <input type="email" id="username" name="username" placeholder="Enter your email" required>
+            <input type="email" class="form-control" id="username" name="username" placeholder="Enter your email" required>
         </div>
 
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
         </div>
-        <input type="submit" value="register">
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
-
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

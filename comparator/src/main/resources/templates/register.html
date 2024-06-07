@@ -5,18 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <title>Registration Form</title>
 
 
 </head>
 
 <body>
-<!--
-<div class="container">
-    <div class="message" th:if="${message != null}">
-        [[${message}]]
-    </div>-->
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+
     <h2>Registration Form</h2>
     <form
             th:action="@{/registration}"

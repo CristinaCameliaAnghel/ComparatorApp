@@ -26,6 +26,9 @@
     </style>
 </head>
 <body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+
 <div class="container">
     <h1>Service Comparison</h1>
     <table class="table" id="serviceTable">
@@ -59,7 +62,11 @@
             <td th:text="${serviceDetails.geographicCoverage}"></td>
             <td th:text="${serviceDetails.serviceProvider}"></td> <!-- Added Service Provider column -->
             <td>
-                <form th:action="@{/apply}" method="post">
+              <!--  <form th:action="@{/apply}" method="post">
+                    <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
+                    <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
+                </form> -->
+                <form th:action="@{/apply}" method="get">
                     <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
                     <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
                 </form>

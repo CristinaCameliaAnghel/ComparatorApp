@@ -13,4 +13,6 @@ public class ServiceDetailsService {
     public ServiceDetails findById(int id) {
         return servicesDetailsRepository.findById(id).orElse(null);
     }
+
+    
 }

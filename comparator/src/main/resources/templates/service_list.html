@@ -15,6 +15,9 @@
     </style>
 </head>
 <body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+
 <div class="container">
     <h1>Service List</h1>
     <h2 th:if="${selectedName != null}" th:text="'Selected Service: ' + ${selectedName}"></h2>

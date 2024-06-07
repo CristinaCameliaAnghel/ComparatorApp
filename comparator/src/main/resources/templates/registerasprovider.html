@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Provider Registration</title>
-    <!-- Includeți aici link-uri pentru CSS-ul necesar pentru stilizare -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+
 <h1>Provider Registration Form</h1>
 <form th:action="@{/registrationasprovider}" th:object="${provider}" method="post">
     <div>

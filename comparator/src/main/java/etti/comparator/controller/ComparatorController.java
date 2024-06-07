@@ -8,14 +8,13 @@ import etti.comparator.repositories.UserServiceOfferRepository;
 import etti.comparator.services.AuthenticationService;
 import etti.comparator.services.CustomUserDetailsService;
 import etti.comparator.services.ServiceDetailsService;
+import etti.comparator.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 import java.util.List;
 
@@ -37,6 +36,10 @@ public class ComparatorController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
+
     @GetMapping("/compare-services")
     public String compareServices(@RequestParam("selectedServices") List<Integer> selectedServiceIds, org.springframework.ui.Model model) {
         List<ServiceDetails> selectedServiceDetailsList = servicesDetailsRepository.findAllById(selectedServiceIds);
@@ -52,8 +55,7 @@ public class ComparatorController {
         return "ServicesComparator";
     }
 
-
-    @PostMapping("/apply")
+  /*8  @PostMapping("/apply")
     public String applyForService(@RequestParam("serviceId") int serviceId, @AuthenticationPrincipal UserDetails currentUser, Model model) {
         User user = userDetailsService.findUserByUsername(currentUser.getUsername());
         ServiceDetails serviceDetails = serviceDetailsService.findById(serviceId);
@@ -65,5 +67,36 @@ public class ComparatorController {
 
         return "redirect:/user-page";
     }
+*/
 
+
+
+    @GetMapping("/apply")
+    public String applyForService(@RequestParam("serviceId") int serviceId, @AuthenticationPrincipal UserDetails currentUser, org.springframework.ui.Model model) {
+        User user = userServiceImpl.findUserByEmail(currentUser.getUsername());
+        ServiceDetails serviceDetails = serviceDetailsService.findById(serviceId);
+
+        // Pregătește modelul pentru a fi utilizat în formularul de aplicare
+        model.addAttribute("userId", user.getId());
+        model.addAttribute("serviceId", serviceDetails.getId());
+
+        // Redirecționează către pagina de formular de aplicare
+        return "ServiceFormApplication";
+    }
+
+    @PostMapping("/apply")
+    public String submitApplicationForm(@ModelAttribute UserServiceOffer userServiceOffer, @AuthenticationPrincipal UserDetails currentUser) {
+        // Obține user-ul autentificat
+        User user = userServiceImpl.findUserByEmail(currentUser.getUsername());
+        userServiceOffer.setUser(user);
+
+        // Setează starea inițială și alte date implicite
+        userServiceOffer.setStatus("in asteptare");
+
+        // Salvează entitatea UserServiceOffer
+        userServiceOfferRepository.save(userServiceOffer);
+
+        // Redirecționează către o pagină de confirmare sau înapoi la pagina de utilizator
+        return "redirect:/user-page";
+    }
 }

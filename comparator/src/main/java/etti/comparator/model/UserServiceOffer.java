@@ -25,6 +25,47 @@ public class UserServiceOffer {
     @Column(nullable = false)
     private String status = "in asteptare";
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    private String email;
+    private String phone;
+
+    @Column(columnDefinition = "TEXT")
+    private String adress;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
     @ElementCollection
     private List<String> comments = new ArrayList<>();
 

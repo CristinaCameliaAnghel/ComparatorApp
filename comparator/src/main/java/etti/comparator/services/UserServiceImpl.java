@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
 
         return user; // Returnarea userului cu rolul de PROVIDER
     }
+
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
