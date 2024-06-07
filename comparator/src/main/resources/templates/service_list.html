@@ -17,7 +17,6 @@
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-
 <div class="container">
     <h1>Service List</h1>
     <h2 th:if="${selectedName != null}" th:text="'Selected Service: ' + ${selectedName}"></h2>
@@ -38,7 +37,7 @@
                 <th>Geographic Coverage</th>
                 <th>Service Provider</th>
                 <th>Details</th>
-                <th>Comments</th> <!-- Added column header for comments -->
+                <th>Comments</th>
             </tr>
             </thead>
             <tbody>
@@ -113,14 +112,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div th:each="offer : ${'userServiceOffers' + serviceDetails.id}">
-                        <p><strong>User:</strong> <span th:text="${offer.user.fullName}"></span></p>
-                        <div th:each="comment : ${offer.comments}">
-                            <p><strong>Comment:</strong> <span th:text="${comment}"></span></p>
-                        </div>
+                    <div th:each="comment : ${commentsMap[serviceDetails.id]}">
+                        <p><strong>User:</strong> <span th:text="${comment.user.fullName}"></span></p>
+                        <p><strong>Comment:</strong> <span th:text="${comment.comment}"></span></p>
+                        <p><strong>Evaluation Score:</strong> <span th:text="${comment.evaluationScore}"></span></p>
                         <hr/>
                     </div>
-                    <div th:if="${'userServiceOffers' + serviceDetails.id}.isEmpty()">
+                    <div th:if="${#lists.isEmpty(commentsMap[serviceDetails.id])}">
                         <p>Nu există comentarii pentru acest serviciu.</p>
                     </div>
                 </div>

@@ -6,11 +6,8 @@ import etti.comparator.model.User;
 import etti.comparator.model.UserServiceComments;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 public class UserServiceCommentMapper {
-
     public UserServiceComments toEntity(UserServiceCommentDto dto, User user, ServiceDetails serviceDetails) {
         UserServiceComments comment = new UserServiceComments();
         comment.setUser(user);

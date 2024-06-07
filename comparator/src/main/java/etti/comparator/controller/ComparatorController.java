@@ -55,20 +55,6 @@ public class ComparatorController {
         return "ServicesComparator";
     }
 
-  /*8  @PostMapping("/apply")
-    public String applyForService(@RequestParam("serviceId") int serviceId, @AuthenticationPrincipal UserDetails currentUser, Model model) {
-        User user = userDetailsService.findUserByUsername(currentUser.getUsername());
-        ServiceDetails serviceDetails = serviceDetailsService.findById(serviceId);
-
-        UserServiceOffer userServiceOffer = new UserServiceOffer();
-        userServiceOffer.setUser(user);
-        userServiceOffer.setServiceDetails(serviceDetails);
-        userServiceOfferRepository.save(userServiceOffer);
-
-        return "redirect:/user-page";
-    }
-*/
-
 
 
     @GetMapping("/apply")
@@ -98,5 +84,17 @@ public class ComparatorController {
 
         // Redirecționează către o pagină de confirmare sau înapoi la pagina de utilizator
         return "redirect:/user-page";
+    }
+
+
+    @GetMapping("/service-details")
+    public String getServiceDetails(@RequestParam("serviceId") int serviceId, org.springframework.ui.Model model) {
+        ServiceDetails serviceDetails = serviceDetailsService.findById(serviceId);
+        List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByServiceDetails(serviceDetails);
+
+        model.addAttribute("serviceDetails", serviceDetails);
+        model.addAttribute("userServiceOffers", userServiceOffers);
+
+        return "ServiceDetails";
     }
 }
