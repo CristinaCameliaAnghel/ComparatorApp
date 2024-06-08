@@ -7,17 +7,28 @@ public class UserDto {
     private String role;
     private String fullName;
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = true;
+    }
+
+    private boolean isActive;
+
 
     public UserDto() {
 
     }
 
-    public UserDto(String email, String password, String role, String fullName) {
+    public UserDto(String email, String password, String role, String fullName, boolean isActive) {
         super();
         this.email = email;
         this.password = password;
         this.role = role;
         this.fullName = fullName;
+        this.isActive = isActive;
     }
 
     public String getEmail() {

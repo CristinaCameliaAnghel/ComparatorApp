@@ -3,42 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Provider Registration</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Intra in comunitatea partenerilor nostrii</h1>
+            <form th:action="@{/registrationasprovider}" th:object="${provider}" method="post">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Parola:</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Nume partener:</label>
+                    <input type="text" class="form-control" id="fullName" th:field="*{fullName}" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceName">Serviciul furnizat:</label>
+                    <input type="text" class="form-control" id="serviceName" th:field="*{serviceName}" placeholder="Enter your service name" required>
+                </div>
+                <div class="form-group">
+                    <label for="utilities">Utilitatea furnizata:</label>
+                    <input type="text" class="form-control" id="utilities" th:field="*{utilities}" placeholder="Enter the utilities offered" required>
+                </div>
+                <div class="form-group">
+                    <label for="cif">CIF:</label>
+                    <input type="text" class="form-control" id="cif" th:field="*{cif}" placeholder="Enter your CIF number" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Inregistreaza-te</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-<h1>Provider Registration Form</h1>
-<form th:action="@{/registrationasprovider}" th:object="${provider}" method="post">
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" th:field="*{password}" required>
-    </div>
-    <div>
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" th:field="*{fullName}" required>
-    </div>
-    <div>
-        <label for="serviceName">Service Name:</label>
-        <input type="text" id="serviceName" th:field="*{serviceName}" required>
-    </div>
-    <div>
-        <label for="utilities">Utilities Offered:</label>
-        <input type="text" id="utilities" th:field="*{utilities}" required>
-    </div>
-    <div>
-        <label for="cif">CIF Number:</label>
-        <input type="text" id="cif" th:field="*{cif}" required>
-    </div>
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

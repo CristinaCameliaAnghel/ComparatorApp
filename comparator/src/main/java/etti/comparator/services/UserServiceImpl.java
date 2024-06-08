@@ -26,14 +26,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(UserDto userDto) {
         // Crearea unui user simplu
-        User user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()), "USER", userDto.getFullName());
+        User user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()), "USER", userDto.getFullName(), true);
         return userRepository.save(user);
     }
 
     @Override
     public User saveProvider(ProviderDto providerDto) {
         // Crearea unui user cu rolul de PROVIDER
-        User user = new User(providerDto.getEmail(), passwordEncoder.encode(providerDto.getPassword()), "PROVIDER", providerDto.getFullName());
+        User user = new User(providerDto.getEmail(), passwordEncoder.encode(providerDto.getPassword()), "PROVIDER", providerDto.getFullName(), false);
         user = userRepository.save(user); // Salvarea userului în baza de date
 
         // Crearea și asocierea entității Provider cu User-ul creat

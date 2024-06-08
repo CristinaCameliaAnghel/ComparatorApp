@@ -45,13 +45,14 @@ public class UserController {
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
+
         return "register";
     }
 
     @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
         userService.save(userDto);
-        model.addAttribute("message", "Registered Successfuly!");
+        model.addAttribute("message", "Inregistrat cu succes!");
         return "register";
     }
 
@@ -102,7 +103,7 @@ public class UserController {
     @PostMapping("/registrationasprovider")
     public String saveProvider(@ModelAttribute("provider") ProviderDto providerDto, Model model) {
         userService.saveProvider(providerDto);
-        model.addAttribute("message", "Provider Registered Successfully!");
+        model.addAttribute("message", "Inregistrat cu succes!");
         return "registerasprovider";
     }
 

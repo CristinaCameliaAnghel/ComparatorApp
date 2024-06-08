@@ -11,18 +11,24 @@
             margin-bottom: 10px;
             width: 100%;
         }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
 <div class="container">
-    <h1>Services</h1>
+    <h1 class="text-center">Servicii</h1>
     <div class="row">
-        <div class="col-6" th:each="service : ${services}">
+        <div class="col-md-6 mb-3" th:each="service : ${services}">
             <form action="/service-list" method="get">
                 <input type="hidden" name="name" th:value="${service.name}">
-                <button type="submit" th:text="${service.name}" class="btn btn-primary"></button>
+                <button type="submit" th:text="${service.name}" class="btn btn-primary btn-custom"></button>
             </form>
         </div>
     </div>

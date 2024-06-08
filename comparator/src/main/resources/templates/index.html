@@ -5,16 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> <!-- nav menu -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
 </head>
 <body>
-<div th:replace="~{fragments/navigation :: navigation}"> </div>
-<h1>Selectați o opțiune:</h1>
-<a th:href="@{/utilitati}"><button>Utilitati</button></a>
-<a th:href="@{/services}"><button>Servicii</button></a>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
 
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Selectați o opțiune:</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <a th:href="@{/utilitati}" class="btn btn-primary btn-block mb-2">Utilitati</a>
+        </div>
+        <div class="col-md-3">
+            <a th:href="@{/services}" class="btn btn-primary btn-block">Servicii</a>
+        </div>
+    </div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>

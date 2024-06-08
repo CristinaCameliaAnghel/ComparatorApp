@@ -19,6 +19,17 @@ public class User {
     private String role;
     private String fullName;
 
+    private boolean isActive;
+
+    public User() {}
+
+    public User(String email, String password, String role, String fullName, boolean isActive) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.fullName = fullName;
+        this.isActive = isActive;
+    }
     public boolean isActive() {
         return isActive;
     }
@@ -26,19 +37,6 @@ public class User {
     public void setActive(boolean active) {
         isActive = active;
     }
-
-    private boolean isActive;
-
-    public User() {}
-
-    public User(String email, String password, String role, String fullName) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.fullName = fullName;
-        this.isActive = false;
-    }
-
     public Long getId() {
         return id;
     }
