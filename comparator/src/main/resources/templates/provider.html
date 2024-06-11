@@ -19,9 +19,6 @@
     </div>
     <div class="well">
         <h2>Welcome, <span th:text="${user.fullName}"></span></h2>
-        <span sec:authorize="isAuthenticated">
-            <a th:href="@{/logout}" class="btn btn-danger pull-right">Logout</a>
-        </span>
     </div>
 
     <div class="card mt-4">

@@ -61,6 +61,12 @@
                 <a class="nav-link" th:href="@{/provider/clients-feedback}">Parerile Clientilor</a>
             </li>
         </ul>
+        <!-- Buton "Logout" pentru utilizatori autentificați -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" th:if="${#authentication.authenticated}">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
     </div>
 </nav>
 </body>

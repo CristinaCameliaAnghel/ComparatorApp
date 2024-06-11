@@ -32,7 +32,7 @@ public class UserServiceOffer {
     private String phone;
 
     @Column(columnDefinition = "TEXT")
-    private String adress;
+    private String address;
 
     public String getDescription() {
         return description;
@@ -58,12 +58,12 @@ public class UserServiceOffer {
         this.phone = phone;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @ElementCollection

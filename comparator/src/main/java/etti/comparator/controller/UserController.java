@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import etti.comparator.Mappers.ServiceDetailsMapper;
 import etti.comparator.Mappers.UserMapper;
+import etti.comparator.Mappers.UserServiceOfferMapper;
 import etti.comparator.dto.ProviderDto;
 import etti.comparator.dto.ServiceDetailsDto;
+import etti.comparator.dto.UserServiceOfferDto;
 import etti.comparator.model.User;
 import etti.comparator.model.UserServiceOffer;
 import etti.comparator.repositories.ServicesRepository;
@@ -61,7 +63,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/user-page")
+    /*  @GetMapping("/user-page")
     public String userPage(Model model, Principal principal) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         User user = userRepository.findByEmail(principal.getName());
@@ -76,24 +78,25 @@ public class UserController {
         //model.addAttribute("userServiceOffers", serviceDetailsDtoList);
         model.addAttribute("userServiceOffers", userServiceOffers);  // Changed to userServiceOffers to include status
         return "user";
-    }
-
-  /*  @PostMapping("/submit-comment")
-    public String submitComment(@RequestParam("offerId") Long offerId, @RequestParam("comment") String comment, Principal principal) {
-        // Logic to handle saving the comment, for example:
-        // 1. Find the UserServiceOffer by ID
-        // 2. Update the offer with the new comment
-        // 3. Save the updated offer to the repository
+    }*/
+    @GetMapping("/user-page")
+    public String userPage(Model model, Principal principal) {
+        // Obține detaliile utilizatorului autentificat
+        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         User user = userRepository.findByEmail(principal.getName());
-        UserServiceOffer userServiceOffer = userServiceOfferRepository.findById(offerId).orElseThrow(() -> new RuntimeException("Offer not found"));
 
-        // Assuming you have a comments field in UserServiceOffer or similar logic
-        userServiceOffer.addComment(comment);
-        userServiceOfferRepository.save(userServiceOffer);
+        // Obține ofertele de servicii ale utilizatorului
+        List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByUser(user);
+        List<UserServiceOfferDto> userServiceOfferDtoList = userServiceOffers.stream()
+                .map(UserServiceOfferMapper::toDto)
+                .collect(Collectors.toList());
 
-        return "redirect:/user-page";
+        // Adaugă utilizatorul și ofertele în model
+        model.addAttribute("user", UserMapper.toDto(user));
+        model.addAttribute("userServiceOffers", userServiceOfferDtoList);
+        // Returnează numele template-ului Thymeleaf
+        return "user";
     }
-*/
 
     @GetMapping("/registrationasprovider")
     public String getProviderRegistrationPage(@ModelAttribute("provider") ProviderDto providerDto) {

@@ -65,11 +65,21 @@
             pointer-events: none;
             opacity: 0.6;
         }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1;
+            padding: 10px;
+            min-width: 300px;
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
-
 
 <div class="header">
     <h1>User Dashboard</h1>
@@ -77,63 +87,74 @@
 <div class="container">
     <h2>Welcome, [[${user.fullName}]]</h2>
 
-    <div class="text-right mb-3">
-        <a class="btn btn-secondary" th:href="@{/logout}">Logout</a>
-    </div>
-
-    <h3>Ofertele tale</h3>
     <div th:if="${userServiceOffers.isEmpty()}">
         <p>Nu ai aplicat încă la nicio ofertă.</p>
     </div>
-    <div th:each="offer : ${userServiceOffers}" class="offer">
-        <h3 th:text="${offer.serviceDetails.name}"></h3>
-        <p><strong>Provider:</strong> <span th:text="${offer.serviceDetails.serviceProvider}"></span></p>
-        <p><strong>Price:</strong> <span th:text="${offer.serviceDetails.price}"></span></p>
-        <p><strong>Duration:</strong> <span th:text="${offer.serviceDetails.estimatedDuration}"></span></p>
-        <p><strong>Booking Availability:</strong> <span th:text="${offer.serviceDetails.onlineBookingAvailability}"></span></p>
-        <p><strong>Feedback Stars:</strong> <span th:text="${offer.serviceDetails.feedbackStars}"></span></p>
-        <p><strong>Geographic Coverage:</strong> <span th:text="${offer.serviceDetails.geographicCoverage}"></span></p>
-        <p><strong>Description:</strong> <span th:text="${offer.serviceDetails.description}"></span></p>
-        <p><strong>Status:</strong> <span th:text="${offer.status}"></span></p>
-        <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
-    </div>
-</div>
 
-<!-- The Modal -->
-<div th:each="offer : ${userServiceOffers}">
-    <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="commentModalLabel">Lasă un comentariu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{/comments/submit}" method="post">
-                        <input type="hidden" name="offerId" th:value="${offer.id}">
-                        <div class="form-group">
-                            <label for="comment">Comentariu:</label>
-                            <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="evaluationScore">Nota:</label>
-                            <select class="form-control" id="evaluationScore" name="evaluationScore" required>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Trimite</button>
-                    </form>
+    <div th:each="offer : ${userServiceOffers}" class="row">
+        <div class="col">
+            <h3>Detalii ofertă</h3>
+            <div class="offer">
+                <h3 th:text="${offer.serviceDetails.name}"></h3>
+                <p><strong>Provider:</strong> <span th:text="${offer.serviceDetails.serviceProvider}"></span></p>
+                <p><strong>Price:</strong> <span th:text="${offer.serviceDetails.price}"></span></p>
+                <p><strong>Duration:</strong> <span th:text="${offer.serviceDetails.estimatedDuration}"></span></p>
+                <p><strong>Booking Availability:</strong> <span th:text="${offer.serviceDetails.onlineBookingAvailability}"></span></p>
+                <p><strong>Feedback Stars:</strong> <span th:text="${offer.serviceDetails.feedbackStars}"></span></p>
+                <p><strong>Geographic Coverage:</strong> <span th:text="${offer.serviceDetails.geographicCoverage}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${offer.serviceDetails.description}"></span></p>
+                <p><strong>Status:</strong> <span th:text="${offer.status}"></span></p>
+                <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
+            </div>
+        </div>
+
+        <div class="col">
+            <h3>Detaliile formularului de aderare</h3>
+            <div class="offer">
+                <p><strong>Email:</strong> <span th:text="${offer.email}"></span></p>
+                <p><strong>Telefon:</strong> <span th:text="${offer.phone}"></span></p>
+                <p><strong>Adresa:</strong> <span th:text="${offer.address}"></span></p>
+                <p><strong>Descriere:</strong> <span th:text="${offer.description}"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div th:each="offer : ${userServiceOffers}">
+        <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="commentModalLabel">Lasă un comentariu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/comments/submit}" method="post">
+                            <input type="hidden" name="offerId" th:value="${offer.id}">
+                            <div class="form-group">
+                                <label for="comment">Comentariu:</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="evaluationScore">Nota:</label>
+                                <select class="form-control" id="evaluationScore" name="evaluationScore" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Trimite</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+</div>
 </body>
 </html>

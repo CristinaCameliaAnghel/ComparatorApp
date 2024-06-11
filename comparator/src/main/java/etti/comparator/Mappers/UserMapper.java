@@ -21,7 +21,7 @@ public class UserMapper {
         dto.setFullName(user.getFullName());
         dto.setEmail(offer.getEmail());
         dto.setPhone(offer.getPhone());
-        dto.setAddress(offer.getAdress());
+        dto.setAddress(offer.getAddress());
         dto.setDescription(offer.getDescription());
         dto.setStatus(offer.getStatus());  // Setează statusul ofertei
         return dto;

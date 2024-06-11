@@ -20,10 +20,6 @@
 <div class="container">
     <h2>Welcome, [[${user.getFullName()}]]</h2>
 
-    <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">Logout</a>
-        </span>
-
 </div>
 <a class="btn btn-primary" th:href="@{/admin/providers}">Furnizori</a> <!-- Changed button to anchor tag -->
 <a class="btn btn-primary" th:href="@{/admin/users}">Clienti</a> <!-- Added button for Users -->
