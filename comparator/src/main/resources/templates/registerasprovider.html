@@ -16,26 +16,36 @@
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Enter your email" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 </div>
                 <div class="form-group">
                     <label for="password">Parola:</label>
                     <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Enter your password" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                 </div>
                 <div class="form-group">
                     <label for="fullName">Nume partener:</label>
                     <input type="text" class="form-control" id="fullName" th:field="*{fullName}" placeholder="Enter your full name" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
                 </div>
                 <div class="form-group">
                     <label for="serviceName">Serviciul furnizat:</label>
-                    <input type="text" class="form-control" id="serviceName" th:field="*{serviceName}" placeholder="Enter your service name" required>
+                    <select class="form-control" id="serviceName" th:field="*{serviceName}">
+                        <option value="" th:text="'Selectează un serviciu'"></option>
+                        <option th:each="service : ${services}" th:value="${service.name}" th:text="${service.name}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="utilities">Utilitatea furnizata:</label>
-                    <input type="text" class="form-control" id="utilities" th:field="*{utilities}" placeholder="Enter the utilities offered" required>
+                    <label for="utilities">Utilitatea furnizată:</label>
+                    <select class="form-control" id="utilities" th:field="*{utilities}">
+                        <option value="" th:text="'Selectează o utilitate'"></option>
+                        <option th:each="utility : ${utilities}" th:value="${utility.name}" th:text="${utility.name}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="cif">CIF:</label>
                     <input type="text" class="form-control" id="cif" th:field="*{cif}" placeholder="Enter your CIF number" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('cif')}" th:errors="*{cif}"></div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Inregistreaza-te</button>

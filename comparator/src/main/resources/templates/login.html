@@ -34,6 +34,12 @@
         h2 {
             margin-bottom: 20px;
         }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -60,6 +66,9 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Autentificare</button>
     </form>
+    <div class="text-center mt-3">
+        <a th:href="@{/registration}" class="btn btn-secondary btn-block">Creare cont nou</a>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -15,11 +15,14 @@ import etti.comparator.model.UserServiceOffer;
 import etti.comparator.repositories.ServicesRepository;
 import etti.comparator.repositories.UserRepository;
 import etti.comparator.repositories.UserServiceOfferRepository;
+import etti.comparator.repositories.UtilityRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import etti.comparator.dto.UserDto;
@@ -37,6 +40,9 @@ public class UserController {
 
     @Autowired
     private ServicesRepository servicesRepository;
+
+    @Autowired
+    private UtilityRepository utilityRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -99,17 +105,23 @@ public class UserController {
     }
 
     @GetMapping("/registrationasprovider")
-    public String getProviderRegistrationPage(@ModelAttribute("provider") ProviderDto providerDto) {
+    public String getProviderRegistrationPage(@ModelAttribute("provider") ProviderDto providerDto, Model model) {
+        model.addAttribute("services", servicesRepository.findAll());
+        model.addAttribute("utilities", utilityRepository.findAll());
         return "registerasprovider";
     }
 
     @PostMapping("/registrationasprovider")
-    public String saveProvider(@ModelAttribute("provider") ProviderDto providerDto, Model model) {
+    public String saveProvider(@Valid @ModelAttribute("provider") ProviderDto providerDto, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("services", servicesRepository.findAll());
+            model.addAttribute("utilities", utilityRepository.findAll());
+            return "registerasprovider";
+        }
         userService.saveProvider(providerDto);
         model.addAttribute("message", "Inregistrat cu succes!");
         return "registerasprovider";
     }
-
 
 
 
