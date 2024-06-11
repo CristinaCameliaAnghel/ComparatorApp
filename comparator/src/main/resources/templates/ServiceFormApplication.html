@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Service Form Application</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<div class="container">
-    <h1>Apply for Service</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Apply for Service</h1>
     <form th:action="@{/apply}" method="post">
         <input type="hidden" name="user.id" th:value="${userId}" />
         <input type="hidden" name="serviceDetails.id" th:value="${serviceId}" />
@@ -25,16 +25,22 @@
 
         <div class="form-group">
             <label for="adress">Address</label>
-            <textarea id="adress" name="adress" class="form-control" required></textarea>
+            <textarea id="adress" name="adress" class="form-control" rows="3" required></textarea>
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" class="form-control"></textarea>
+            <textarea id="description" name="description" class="form-control" rows="4"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

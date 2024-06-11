@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Service Comparison</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         .sort-arrow {
@@ -23,16 +23,21 @@
             pointer-events: none;
             opacity: 0.6;
         }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-
 <div class="container">
-    <h1>Service Comparison</h1>
-    <table class="table" id="serviceTable">
-        <thead>
+    <h1 class="text-center">Service Comparison</h1>
+    <table class="table table-striped table-hover" id="serviceTable">
+        <thead class="thead-dark">
         <tr>
             <th id="id">ID <span class="sort-arrow up" data-sort="id" data-direction="asc"></span><span class="sort-arrow down" data-sort="id" data-direction="desc"></span></th>
             <th id="name">Name <span class="sort-arrow up" data-sort="name" data-direction="asc"></span><span class="sort-arrow down" data-sort="name" data-direction="desc"></span></th>
@@ -44,7 +49,7 @@
             <th id="approved">Approved/Certified/Licensed <span class="sort-arrow up" data-sort="approved" data-direction="asc"></span><span class="sort-arrow down" data-sort="approved" data-direction="desc"></span></th>
             <th id="stars">Feedback Stars <span class="sort-arrow up" data-sort="stars" data-direction="asc"></span><span class="sort-arrow down" data-sort="stars" data-direction="desc"></span></th>
             <th id="coverage">Geographic Coverage <span class="sort-arrow up" data-sort="coverage" data-direction="asc"></span><span class="sort-arrow down" data-sort="coverage" data-direction="desc"></span></th>
-            <th id="serviceProvider">Service Provider<span class="sort-arrow up" data-sort="serviceProvider" data-direction="asc"></span><span class="sort-arrow down" data-sort="serviceProvider" data-direction="desc"></span></th> <!-- Added Service Provider column header -->
+            <th id="serviceProvider">Service Provider<span class="sort-arrow up" data-sort="serviceProvider" data-direction="asc"></span><span class="sort-arrow down" data-sort="serviceProvider" data-direction="desc"></span></th>
             <th>Action</th>
         </tr>
         </thead>
@@ -60,12 +65,8 @@
             <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
             <td th:text="${serviceDetails.feedbackStars}"></td>
             <td th:text="${serviceDetails.geographicCoverage}"></td>
-            <td th:text="${serviceDetails.serviceProvider}"></td> <!-- Added Service Provider column -->
+            <td th:text="${serviceDetails.serviceProvider}"></td>
             <td>
-              <!--  <form th:action="@{/apply}" method="post">
-                    <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
-                    <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
-                </form> -->
                 <form th:action="@{/apply}" method="get">
                     <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
                     <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
@@ -75,6 +76,7 @@
         </tbody>
     </table>
 </div>
+
 <script>
     let sortDirection = {};
 
@@ -119,5 +121,8 @@
         $(".sort-arrow[data-sort='" + column + "'][data-direction='" + direction + "']").addClass("active");
     }
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -58,7 +58,7 @@
                 <a class="nav-link" th:href="@{/provider/requests}">Cereri aderare</a>
             </li>
             <li class="nav-item" th:classappend="${activePage == 'provider/reviews'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
-                <a class="nav-link" th:href="@{/provider/reviews}">Parerile Clientilor</a>
+                <a class="nav-link" th:href="@{/provider/clients-feedback}">Parerile Clientilor</a>
             </li>
         </ul>
     </div>

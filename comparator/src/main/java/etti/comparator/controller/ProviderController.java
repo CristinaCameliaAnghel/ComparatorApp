@@ -1,6 +1,8 @@
 package etti.comparator.controller;
 
+
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +11,14 @@ import java.util.stream.Collectors;
 import etti.comparator.Mappers.UserMapper;
 import etti.comparator.dto.ServiceApplicationDto;
 import etti.comparator.dto.UserDto;
+import etti.comparator.model.UserServiceComments;
 import etti.comparator.model.UserServiceOffer;
+import etti.comparator.repositories.UserServiceCommentsRepository;
 import etti.comparator.repositories.UserServiceOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +45,10 @@ public class ProviderController {
 
     @Autowired
     private UserServiceOfferRepository userServiceOfferRepository;
+
+    @Autowired
+    private UserServiceCommentsRepository userServiceCommentsRepository;
+
 
     @GetMapping("/provider-page")
     public String providerPage(Model model) {
@@ -199,5 +210,32 @@ public class ProviderController {
         redirectAttributes.addFlashAttribute("message", "Status updated successfully!");
         return "redirect:/provider/requests";
     }
+
+    @GetMapping("/provider/clients-feedback")
+    public String getClientsFeedback(Model model) {
+        CustomUserDetail userDetails = (CustomUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String providerName = userDetails.getFullName();
+
+        // Obține toate serviciile furnizate de providerul autentificat
+        List<ServiceDetails> userServices = servicesDetailsRepository.findByServiceProvider(providerName);
+
+        // Colectează toate comentariile pentru serviciile furnizorului
+        List<UserServiceComments> allComments = new ArrayList<>();
+        for (ServiceDetails service : userServices) {
+            List<UserServiceComments> comments = userServiceCommentsRepository.findByServiceDetails(service);
+            allComments.addAll(comments);
+        }
+
+        model.addAttribute("comments", allComments);
+        return "ProviderDashboard/ClientsFeedback";
+    }
+
+
+
+
+
+
+
+
 
 }

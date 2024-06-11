@@ -81,9 +81,9 @@
         <a class="btn btn-secondary" th:href="@{/logout}">Logout</a>
     </div>
 
-    <h3>Your Offers</h3>
+    <h3>Ofertele tale</h3>
     <div th:if="${userServiceOffers.isEmpty()}">
-        <p>You have not applied for any offers yet.</p>
+        <p>Nu ai aplicat încă la nicio ofertă.</p>
     </div>
     <div th:each="offer : ${userServiceOffers}" class="offer">
         <h3 th:text="${offer.serviceDetails.name}"></h3>

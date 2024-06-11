@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/admin-page").hasAuthority("ADMIN")
                         .requestMatchers("/user-page").hasAuthority("USER")
-                        .requestMatchers("/provider-page", "/provider/requests").hasAuthority("PROVIDER")
+                        .requestMatchers("/provider-page", "/provider/requests", "/provider/clients-feedback").hasAuthority("PROVIDER")
                         .requestMatchers("/admin/providers", "/admin/users").hasAuthority("ADMIN") // Restriction for ProvidersList page
                         .requestMatchers("/registration","/ServicesComparator", "/registrationasprovider", "/css/**", "/index", "/CreateProduct", "/EditProduct",
                                 "/servicii", "/products", "services", "/service-list","/serviceOffers/CreateServiceOffers", "/serviceOffers/EditServiceOffers", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()

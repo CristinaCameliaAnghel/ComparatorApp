@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Feedback</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container mt-4">
+    <h1>Client Feedback</h1>
+    <div th:if="${#lists.isEmpty(comments)}">
+        <p>No feedback available.</p>
+    </div>
+    <div th:unless="${#lists.isEmpty(comments)}">
+        <ul class="list-group">
+            <li class="list-group-item" th:each="comment : ${comments}">
+                <h5 th:text="${comment.serviceDetails.name}">Service Name</h5>
+                <p><em th:text="${comment.user.email}">User</em></p>
+                <p th:text="${comment.comment}">Comment</p>
+                <p>Rating: <span th:text="${comment.evaluationScore}">Rating</span></p>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
