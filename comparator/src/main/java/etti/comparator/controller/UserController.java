@@ -4,18 +4,15 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import etti.comparator.Mappers.ServiceDetailsMapper;
+import etti.comparator.Mappers.UserServiceCommentMapper;
 import etti.comparator.Mappers.UserMapper;
 import etti.comparator.Mappers.UserServiceOfferMapper;
-import etti.comparator.dto.ProviderDto;
-import etti.comparator.dto.ServiceDetailsDto;
-import etti.comparator.dto.UserServiceOfferDto;
+import etti.comparator.dto.*;
+import etti.comparator.model.ServiceDetails;
 import etti.comparator.model.User;
+import etti.comparator.model.UserServiceComments;
 import etti.comparator.model.UserServiceOffer;
-import etti.comparator.repositories.ServicesRepository;
-import etti.comparator.repositories.UserRepository;
-import etti.comparator.repositories.UserServiceOfferRepository;
-import etti.comparator.repositories.UtilityRepository;
+import etti.comparator.repositories.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import etti.comparator.dto.UserDto;
 import etti.comparator.services.UserService;
 
 @Controller
@@ -47,9 +43,18 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ServicesDetailsRepository servicesDetailsRepository;
+
 
     @Autowired
     private UserServiceOfferRepository userServiceOfferRepository;
+
+    @Autowired
+    private UserServiceCommentsRepository userServiceCommentsRepository;
+
+    @Autowired
+    private UserServiceCommentMapper userServiceCommentsMapper;
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -69,22 +74,6 @@ public class UserController {
         return "login";
     }
 
-    /*  @GetMapping("/user-page")
-    public String userPage(Model model, Principal principal) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-        User user = userRepository.findByEmail(principal.getName());
-
-        List<UserServiceOffer> userServiceOffers = userServiceOfferRepository.findByUser(user);
-        List<ServiceDetailsDto> serviceDetailsDtoList = userServiceOffers.stream()
-                .map(UserServiceOffer::getServiceDetails)
-                .map(ServiceDetailsMapper::toDto)
-                .collect(Collectors.toList());
-
-        model.addAttribute("user", UserMapper.toDto(user));
-        //model.addAttribute("userServiceOffers", serviceDetailsDtoList);
-        model.addAttribute("userServiceOffers", userServiceOffers);  // Changed to userServiceOffers to include status
-        return "user";
-    }*/
     @GetMapping("/user-page")
     public String userPage(Model model, Principal principal) {
         // Obține detaliile utilizatorului autentificat
@@ -100,6 +89,7 @@ public class UserController {
         // Adaugă utilizatorul și ofertele în model
         model.addAttribute("user", UserMapper.toDto(user));
         model.addAttribute("userServiceOffers", userServiceOfferDtoList);
+
         // Returnează numele template-ului Thymeleaf
         return "user";
     }
@@ -123,9 +113,12 @@ public class UserController {
         return "registerasprovider";
     }
 
-
-
-
+    @GetMapping("/comments/{serviceDetailsId}")
+    @ResponseBody
+    public List<UserServiceCommentDto> getCommentsByServiceDetailsId(@PathVariable int serviceDetailsId) {
+        ServiceDetails serviceDetails = servicesDetailsRepository.findById(serviceDetailsId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid service details ID: " + serviceDetailsId));
+        List<UserServiceComments> comments = userServiceCommentsRepository.findByServiceDetails(serviceDetails);
+        return comments.stream().map(UserServiceCommentMapper::toDto).collect(Collectors.toList());
     }
-
-
+}

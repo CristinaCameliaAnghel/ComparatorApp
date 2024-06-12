@@ -16,4 +16,13 @@ public class UserServiceCommentMapper {
         comment.setEvaluationScore(dto.getEvaluationScore());
         return comment;
     }
+
+    public static UserServiceCommentDto toDto(UserServiceComments comment) {
+        UserServiceCommentDto dto = new UserServiceCommentDto();
+        dto.setId(comment.getId());
+        dto.setComment(comment.getComment());
+        dto.setEvaluationScore(comment.getEvaluationScore());
+        dto.setUserName(comment.getUser().getFullName());
+        return dto;
+    }
 }

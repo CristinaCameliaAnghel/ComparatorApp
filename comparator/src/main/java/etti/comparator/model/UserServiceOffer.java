@@ -66,8 +66,7 @@ public class UserServiceOffer {
         this.address = address;
     }
 
-    @ElementCollection
-    private List<String> comments = new ArrayList<>();
+
 
     // Getters and setters
     public Long getId() {
@@ -101,11 +100,5 @@ public class UserServiceOffer {
     public void setStatus(String status) {
         this.status = status;
     }
-    public void setComments(List<String> comments) {
-        this.comments = comments;
-    }
 
-    public void addComment(String comment) {
-        this.comments.add(comment);
-    }
 }

@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org"
-      lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <style>
@@ -105,6 +102,7 @@
                 <p><strong>Description:</strong> <span th:text="${offer.serviceDetails.description}"></span></p>
                 <p><strong>Status:</strong> <span th:text="${offer.status}"></span></p>
                 <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" th:data-target="'#viewCommentsModal' + ${offer.serviceDetails.id}">Vezi comentarii</button>
             </div>
         </div>
 
@@ -119,7 +117,7 @@
         </div>
     </div>
 
-    <!-- The Modal -->
+    <!-- Modal pentru adăugare comentariu -->
     <div th:each="offer : ${userServiceOffers}">
         <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -155,6 +153,50 @@
         </div>
     </div>
 
+    <!-- Modal pentru vizualizare comentarii -->
+    <div th:each="offer : ${userServiceOffers}">
+        <div class="modal fade" th:id="'viewCommentsModal' + ${offer.serviceDetails.id}" tabindex="-1" role="dialog" aria-labelledby="viewCommentsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewCommentsModalLabel">Comentarii</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" th:id="'commentsList' + ${offer.serviceDetails.id}">
+                            <!-- Comentariile vor fi populate aici prin AJAX -->
+                        </ul>
+                        <p class="text-center text-muted" th:id="'noCommentsMessage' + ${offer.serviceDetails.id}" style="display: none;">Nu ai lăsat încă niciun comentariu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('.btn-secondary').on('click', function() {
+            var modalId = $(this).data('target');
+            var serviceDetailsId = modalId.replace('#viewCommentsModal', '');
+            $.get('/comments/' + serviceDetailsId, function(comments) {
+                var commentsList = $('#commentsList' + serviceDetailsId);
+                var noCommentsMessage = $('#noCommentsMessage' + serviceDetailsId);
+                commentsList.empty();
+                if (comments.length === 0) {
+                    noCommentsMessage.show();
+                } else {
+                    noCommentsMessage.hide();
+                    comments.forEach(function(comment) {
+                        commentsList.append('<li class="list-group-item"><strong>' + comment.userName + ':</strong> ' + comment.comment + ' - <em>Nota: ' + comment.evaluationScore + '</em></li>');
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
