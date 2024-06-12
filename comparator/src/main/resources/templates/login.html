@@ -69,6 +69,32 @@
     <div class="text-center mt-3">
         <a th:href="@{/registration}" class="btn btn-secondary btn-block">Creare cont nou</a>
     </div>
+    <div class="text-center mt-3">
+        <button class="btn btn-link" data-toggle="modal" data-target="#forgotPasswordModal">Am uitat parola</button>
+    </div>
+</div>
+
+<!-- Modal pentru resetare parola -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotPasswordModalLabel">Resetare parola</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/forgot-password}" method="post">
+                    <div class="form-group">
+                        <label for="email">Adresa de email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Introdu adresa de email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Trimite</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

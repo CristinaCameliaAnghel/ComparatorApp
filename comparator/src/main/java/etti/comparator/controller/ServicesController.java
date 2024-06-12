@@ -1,5 +1,7 @@
 package etti.comparator.controller;
 
+import etti.comparator.dto.ServiceDetailsDto;
+import etti.comparator.dto.UserServiceCommentDto;
 import etti.comparator.model.Service;
 import etti.comparator.model.ServiceDetails;
 import etti.comparator.model.UserServiceComments;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +38,7 @@ public class ServicesController {
         return "services";
     }
 
-    @GetMapping("/service-list")
+ @GetMapping("/service-list")
     public String showServiceList(Model model, @RequestParam(required = false) String name) {
         List<ServiceDetails> serviceDetailsList;
         if (name != null && !name.isEmpty()) {
@@ -55,4 +58,8 @@ public class ServicesController {
 
         return "service_list";
     }
+
+
+
+
 }

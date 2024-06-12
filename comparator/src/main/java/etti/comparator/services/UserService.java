@@ -7,4 +7,6 @@ public interface UserService {
 
     User save (UserDto userDto);
     User saveProvider(ProviderDto providerDto);
+
+    User findUserByEmail(String email);
 }

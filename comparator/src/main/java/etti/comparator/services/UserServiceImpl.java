@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -25,29 +27,47 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserDto userDto) {
-        // Crearea unui user simplu
-        User user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()), "USER", userDto.getFullName(), true);
+        User user = userRepository.findByEmail(userDto.getEmail());
+        if (user == null) {
+            user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()), userDto.getRole(), userDto.getFullName(), userDto.isActive());
+        } else {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            user.setRole(userDto.getRole());
+            user.setFullName(userDto.getFullName());
+            user.setActive(userDto.isActive());
+        }
         return userRepository.save(user);
     }
 
     @Override
     public User saveProvider(ProviderDto providerDto) {
-        // Crearea unui user cu rolul de PROVIDER
-        User user = new User(providerDto.getEmail(), passwordEncoder.encode(providerDto.getPassword()), "PROVIDER", providerDto.getFullName(), false);
-        user = userRepository.save(user); // Salvarea userului în baza de date
+        User user = userRepository.findByEmail(providerDto.getEmail());
+        if (user == null) {
+            user = new User(providerDto.getEmail(), passwordEncoder.encode(providerDto.getPassword()), "PROVIDER", providerDto.getFullName(), false);
+        } else {
+            user.setPassword(passwordEncoder.encode(providerDto.getPassword()));
+            user.setRole("PROVIDER");
+            user.setFullName(providerDto.getFullName());
+            user.setActive(false);
+        }
+        user = userRepository.save(user);
 
-        // Crearea și asocierea entității Provider cu User-ul creat
-        Provider provider = new Provider();
-        provider.setUser(user);
+        Optional<Provider> providerOpt = providerRepository.findByUserId(user.getId());
+        Provider provider;
+        if (providerOpt.isPresent()) {
+            provider = providerOpt.get();
+        } else {
+            provider = new Provider();
+            provider.setUser(user);
+        }
         provider.setServiceName(providerDto.getServiceName());
         provider.setUtilities(providerDto.getUtilities());
         provider.setCif(providerDto.getCif());
 
-        providerRepository.save(provider); // Salvarea entității Provider în baza de date
+        providerRepository.save(provider);
 
-        return user; // Returnarea userului cu rolul de PROVIDER
+        return user;
     }
-
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
