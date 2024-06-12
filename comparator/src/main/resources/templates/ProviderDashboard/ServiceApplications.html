@@ -17,6 +17,7 @@
             <th>Phone</th>
             <th>Address</th>
             <th>Description</th>
+            <th>Service Offer Name</th> <!-- Adaugă coloana pentru numele ofertei -->
             <th>Current Status</th>
             <th>Change Status</th>
         </tr>
@@ -28,6 +29,7 @@
             <td th:text="${serviceApplication.phone}">Phone</td>
             <td th:text="${serviceApplication.address}">Address</td>
             <td th:text="${serviceApplication.description}">Description</td>
+            <td th:text="${serviceApplication.serviceOfferName}">Service Offer Name</td> <!-- Afiseaza numele ofertei -->
             <td th:text="${serviceApplication.status}">Current Status</td>
             <td>
                 <div class="dropdown">

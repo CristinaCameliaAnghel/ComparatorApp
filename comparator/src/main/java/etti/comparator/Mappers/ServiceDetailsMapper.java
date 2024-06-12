@@ -17,7 +17,7 @@ public class ServiceDetailsMapper {
         dto.setRequiredEquipment(serviceDetails.getRequiredEquipment());
         dto.setGuarantee(serviceDetails.getGuarantee());
         dto.setApprovedCertifiedLicensed(serviceDetails.getApprovedCertifiedLicensed());
-        dto.setFeedbackStars(serviceDetails.getFeedbackStars());
+        dto.setServiceOfferName(serviceDetails.getServiceOfferName());
         dto.setGeographicCoverage(serviceDetails.getGeographicCoverage());
         dto.setDescription(serviceDetails.getDescription());
         return dto;

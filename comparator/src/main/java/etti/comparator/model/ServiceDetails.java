@@ -21,7 +21,7 @@ public class ServiceDetails {
     private String requiredEquipment;
     private String guarantee;
     private String approvedCertifiedLicensed;
-    private int feedbackStars;
+    private String serviceOfferName;
     private String geographicCoverage;
 
     @Column(columnDefinition = "TEXT")
@@ -100,12 +100,12 @@ public class ServiceDetails {
         this.approvedCertifiedLicensed = approvedCertifiedLicensed;
     }
 
-    public int getFeedbackStars() {
-        return feedbackStars;
+    public String getServiceOfferName() {
+        return serviceOfferName;
     }
 
-    public void setFeedbackStars(int feedbackStars) {
-        this.feedbackStars = feedbackStars;
+    public void setServiceOfferName(String serviceOfferName) {
+        this.serviceOfferName = serviceOfferName;
     }
 
     public String getGeographicCoverage() {

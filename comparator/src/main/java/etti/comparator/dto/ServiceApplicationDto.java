@@ -7,6 +7,15 @@ public class ServiceApplicationDto {
     private String phone;
     private String address;
     private String description;
+    private String serviceOfferName; // Adaugă proprietatea pentru numele ofertei
+
+    public String getServiceOfferName() {
+        return serviceOfferName;
+    }
+
+    public void setServiceOfferName(String serviceOfferName) {
+        this.serviceOfferName = serviceOfferName;
+    }
 
     public String getStatus() {
         return status;

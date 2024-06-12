@@ -10,15 +10,11 @@ import java.util.stream.Collectors;
 
 import etti.comparator.Mappers.UserMapper;
 import etti.comparator.dto.ServiceApplicationDto;
-import etti.comparator.dto.UserDto;
 import etti.comparator.model.UserServiceComments;
 import etti.comparator.model.UserServiceOffer;
 import etti.comparator.repositories.UserServiceCommentsRepository;
 import etti.comparator.repositories.UserServiceOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,7 +98,7 @@ public class ProviderController {
         serviceDetails.setApprovedCertifiedLicensed(serviceDetailsDto.getApprovedCertifiedLicensed());
         serviceDetails.setGeographicCoverage(serviceDetailsDto.getGeographicCoverage());
         serviceDetails.setDescription(serviceDetailsDto.getDescription());
-        serviceDetails.setFeedbackStars(serviceDetailsDto.getFeedbackStars());
+        serviceDetails.setServiceOfferName(serviceDetailsDto.getServiceOfferName());
         serviceDetails.setRegisteredAt(new Date());
 
         servicesDetailsRepository.save(serviceDetails);
@@ -127,7 +123,7 @@ public class ProviderController {
             serviceDetailsDto.setApprovedCertifiedLicensed(serviceDetails.getApprovedCertifiedLicensed());
             serviceDetailsDto.setGeographicCoverage(serviceDetails.getGeographicCoverage());
             serviceDetailsDto.setDescription(serviceDetails.getDescription());
-            serviceDetailsDto.setFeedbackStars(serviceDetails.getFeedbackStars());
+            serviceDetailsDto.setServiceOfferName(serviceDetails.getServiceOfferName());
             serviceDetailsDto.setRegisteredAt(serviceDetails.getRegisteredAt());
 
             model.addAttribute("serviceDetailsDto", serviceDetailsDto);
@@ -165,7 +161,7 @@ public class ProviderController {
             serviceDetails.setApprovedCertifiedLicensed(serviceDetailsDto.getApprovedCertifiedLicensed());
             serviceDetails.setGeographicCoverage(serviceDetailsDto.getGeographicCoverage());
             serviceDetails.setDescription(serviceDetailsDto.getDescription());
-            serviceDetails.setFeedbackStars(serviceDetailsDto.getFeedbackStars());
+            serviceDetails.setServiceOfferName(serviceDetailsDto.getServiceOfferName());
 
             servicesDetailsRepository.save(serviceDetails);
 
@@ -186,7 +182,7 @@ public class ProviderController {
         return "redirect:/provider-page";
     }
 
-    @GetMapping("/provider/requests")
+ /*   @GetMapping("/provider/requests")
     public String serviceApplications(Model model) {
         CustomUserDetail userDetails = (CustomUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String providerName = userDetails.getFullName();
@@ -200,7 +196,25 @@ public class ProviderController {
         model.addAttribute("serviceApplicationDtos", serviceApplicationDtos);
         return "ProviderDashboard/ServiceApplications";
     }
+*/
+ @GetMapping("/provider/requests")
+ public String serviceApplications(Model model) {
+     CustomUserDetail userDetails = (CustomUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+     String providerName = userDetails.getFullName();
 
+     List<UserServiceOffer> serviceOffers = userServiceOfferRepository.findByServiceDetails_ServiceProvider(providerName);
+
+     List<ServiceApplicationDto> serviceApplicationDtos = serviceOffers.stream()
+             .map(serviceOffer -> {
+                 ServiceApplicationDto applicationDto = UserMapper.toServiceApplicationDto(serviceOffer);
+                 applicationDto.setServiceOfferName(serviceOffer.getServiceDetails().getServiceOfferName());
+                 return applicationDto;
+             })
+             .collect(Collectors.toList());
+
+     model.addAttribute("serviceApplicationDtos", serviceApplicationDtos);
+     return "ProviderDashboard/ServiceApplications";
+ }
 
     @GetMapping("/updateStatus")
     public String updateStatus(@RequestParam Long serviceApplicationId, @RequestParam String status, RedirectAttributes redirectAttributes) {

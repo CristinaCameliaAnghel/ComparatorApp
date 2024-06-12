@@ -15,7 +15,7 @@ public class ServiceDetailsDto {
     private String requiredEquipment;
     private String guarantee;
     private String approvedCertifiedLicensed;
-    private int feedbackStars;
+    private String serviceOfferName;
     private String geographicCoverage;
 
     @Column(columnDefinition = "TEXT")
@@ -86,12 +86,12 @@ public class ServiceDetailsDto {
         this.approvedCertifiedLicensed = approvedCertifiedLicensed;
     }
 
-    public int getFeedbackStars() {
-        return feedbackStars;
+    public String getServiceOfferName() {
+        return serviceOfferName;
     }
 
-    public void setFeedbackStars(int feedbackStars) {
-        this.feedbackStars = feedbackStars;
+    public void setServiceOfferName(String setServiceOfferName) {
+        this.serviceOfferName = setServiceOfferName;
     }
 
     public String getGeographicCoverage() {
