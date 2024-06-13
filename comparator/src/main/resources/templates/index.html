@@ -6,23 +6,38 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="css\style.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Selectați o opțiune:</h1>
-    <div class="row justify-content-center">
-        <div class="col-md-3">
-            <a th:href="@{/utilitati}" class="btn btn-primary btn-block mb-2">Utilitati</a>
+
+<div class="container container-custom mt-5">
+    <div class="text-center w-100">
+        <h1 class="header-title-custom mb-4">Bine ați venit la platforma noastră!</h1>
+        <p class="header-subtitle-custom mb-5">Alegeți o categorie pentru a vedea toate opțiunile disponibile și pentru a compara și contracta serviciile și utilitățile dorite.</p>
+    </div>
+    <div class="row justify-content-center w-100">
+        <div class="col-md-5">
+            <div class="card card-custom mb-4">
+                <div class="card-body d-flex flex-column text-center">
+                    <h5 class="card-title card-title-custom">Utilități</h5>
+                    <p class="card-text card-text-custom">Accesați toate utilitățile și comparați ofertele pentru a alege cea mai bună opțiune pentru dvs.</p>
+                    <a th:href="@{/utilitati}" class="btn btn-custom">Accesați Utilități</a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
-            <a th:href="@{/services}" class="btn btn-primary btn-block">Servicii</a>
+        <div class="col-md-5">
+            <div class="card card-custom mb-4">
+                <div class="card-body d-flex flex-column text-center">
+                    <h5 class="card-title card-title-custom">Servicii</h5>
+                    <p class="card-text card-text-custom">Explorați toate serviciile disponibile și comparați ofertele pentru a găsi cea mai bună opțiune pentru dvs.</p>
+                    <a th:href="@{/services}" class="btn btn-custom">Accesați Servicii</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

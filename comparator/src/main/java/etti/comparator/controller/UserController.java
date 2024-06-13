@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,6 +56,9 @@ public class UserController {
 
     @Autowired
     private UserServiceCommentMapper userServiceCommentsMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -120,5 +124,35 @@ public class UserController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid service details ID: " + serviceDetailsId));
         List<UserServiceComments> comments = userServiceCommentsRepository.findByServiceDetails(serviceDetails);
         return comments.stream().map(UserServiceCommentMapper::toDto).collect(Collectors.toList());
+    }
+
+
+    // Metoda pentru afișarea profilului utilizatorului
+    @GetMapping("/profile")
+    public String showProfile(Model model, @RequestParam(name = "id", required = false) Long userId, Principal principal) {
+        if (userId == null) {
+            // Obține utilizatorul curent autentificat
+            User user = userRepository.findByEmail(principal.getName());
+            userId = user.getId();
+        }
+        User user = userRepository.findById(userId).orElse(null);
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    // Metoda pentru actualizarea profilului utilizatorului
+    @PostMapping("/profile")
+    public String updateProfile(User user, Principal principal) {
+        User existingUser = userRepository.findById(user.getId()).orElse(null);
+        if (existingUser != null) {
+            existingUser.setEmail(user.getEmail());
+            existingUser.setFullName(user.getFullName());
+            // Codifică parola nouă dacă este schimbată
+            if (!user.getPassword().isEmpty()) {
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            userRepository.save(existingUser);
+        }
+        return "redirect:/profile?id=" + user.getId();
     }
 }

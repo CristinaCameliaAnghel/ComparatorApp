@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org"
-      lang="en">
+      lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Tablou de Bord Admin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -15,25 +15,24 @@
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 <div class="header">
-    <h1>ADMIN Dashboard</h1>
+    <h1>Tablou de Bord Admin</h1>
 </div>
 <div class="container">
-    <h2>Welcome, [[${user.getFullName()}]]</h2>
+    <h2>Bine ai venit, [[${user.getFullName()}]]</h2>
 
 </div>
-<a class="btn btn-primary" th:href="@{/admin/providers}">Furnizori</a> <!-- Changed button to anchor tag -->
-<a class="btn btn-primary" th:href="@{/admin/users}">Clienti</a> <!-- Added button for Users -->
-<h3> Service list</h3>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">Add Services</button>
+<h3>Lista de Servicii</h3>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">Adaugă Servicii</button>
 
 <div class="container">
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
+            <th>Nume</th>
+            <th>Acțiune</th>
 
         </tr>
         </thead>
@@ -49,19 +48,19 @@
                         th:data-id="${service.id}"
                         th:data-name="${service.name}"
                         onclick="setEditServiceModalData(this)">
-                    Edit
+                    Editează
                 </button>
                 <form th:action="@{/delete-service/{id}(id=${service.id})}" method="post" style="display:inline;">
                     <input type="hidden" name="_method" value="delete"/>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">Șterge</button>
                 </form>
             </td>
         </tbody>
     </table>
 </div>
-<!-- Pagination Controls for Services -->
+<!-- Controale de Paginare pentru Servicii -->
 
-<nav aria-label="Page navigation">
+<nav aria-label="Navigare Pagină">
     <ul class="pagination">
         <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
             <a class="page-link" th:href="@{/admin-page(page=${currentPage - 1}, size=${5})}" aria-label="Previous">
@@ -81,15 +80,15 @@
 </nav>
 
 
-<h3> Utility list</h3>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUtilityModal">Add Utility</button>
+<h3>Lista de Utilități</h3>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUtilityModal">Adaugă Utilitate</button>
 <div class="container">
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
+            <th>Nume</th>
+            <th>Acțiune</th>
         </tr>
         </thead>
         <tbody>
@@ -104,11 +103,11 @@
                         th:data-id="${utility.id}"
                         th:data-name="${utility.name}"
                         onclick="setEditUtilityModalData(this)">
-                    Edit
+                    Editează
                 </button>
                 <form th:action="@{/delete-utility/{id}(id=${utility.id})}" method="post" style="display:inline;">
                     <input type="hidden" name="_method" value="delete"/>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">Șterge</button>
                 </form>
 
             </td>
@@ -120,116 +119,111 @@
     </table>
 </div>
 
-<!-- The Service Modal -->
+<!-- Modalul pentru Servicii -->
 <div class="modal fade" id="addServiceModal" tabindex="-1" role="dialog" aria-labelledby="addServiceModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addServiceModalLabel">Add New Service</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="addServiceModalLabel">Adaugă Serviciu Nou</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Închide">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form th:action="@{/add-service}" th:object="${service}" method="post">
                     <div class="form-group">
-                        <label for="serviceName">Service Name</label>
+                        <label for="serviceName">Nume Serviciu</label>
                         <input type="text" class="form-control" id="serviceName" name="name" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Trimite</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- The Utility Modal -->
+<!-- Modalul pentru Utilități -->
 <div class="modal fade" id="addUtilityModal" tabindex="-1" role="dialog" aria-labelledby="addUtilityModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUtilityModalLabel">Add New Service</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="addUtilityModalLabel">Adaugă Utilitate Nouă</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Închide">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form th:action="@{/add-utility}" th:object="${utility}" method="post">
                     <div class="form-group">
-                        <label for="serviceName">Service Name</label>
+                        <label for="utilityName">Nume Utilitate</label>
                         <input type="text" class="form-control" id="utilityName" name="name" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Trimite</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Edit Service Modal -->
+<!-- Modalul pentru Editare Servicii -->
 <div class="modal fade" id="editServiceModal" tabindex="-1" role="dialog" aria-labelledby="editServiceModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="editServiceModalLabel">Editează Serviciu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Închide">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form th:action="@{/edit-service}" method="post">
                     <div class="form-group">
-                        <label for="oldServiceName">Current Service Name</label>
+                        <label for="oldServiceName">Numele Curent al Serviciului</label>
                         <input type="text" class="form-control" id="oldServiceName" name="oldName" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="newServiceName">New Service Name</label>
+                        <label for="newServiceName">Nume Nou al Serviciului</label>
                         <input type="text" class="form-control" id="newServiceName" name="newName" required>
                     </div>
                     <input type="hidden" id="editServiceId" name="id">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Trimite</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-</div>
-
-<!-- Edit Utility Modal -->
+<!-- Modalul pentru Editare Utilități -->
 <div class="modal fade" id="editUtilityModal" tabindex="-1" role="dialog" aria-labelledby="editUtilityModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUtilityModalLabel">Edit Utility</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="editUtilityModalLabel">Editează Utilitate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Închide">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form th:action="@{/edit-utility}" method="post">
                     <div class="form-group">
-                        <label for="oldUtilityName">Current Service Name</label>
+                        <label for="oldUtilityName">Numele Curent al Utilității</label>
                         <input type="text" class="form-control" id="oldUtilityName" name="oldName" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="newServiceName">New Service Name</label>
+                        <label for="newUtilityName">Nume Nou al Utilității</label>
                         <input type="text" class="form-control" id="newUtilityName" name="newName" required>
                     </div>
                     <input type="hidden" id="editUtilityId" name="id">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Trimite</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-</div>
-
 
 <script>
     function setEditServiceModalData(button) {
@@ -249,7 +243,6 @@
         $('#editUtilityModal').modal('show');
     }
 </script>
-
 
 </body>
 </html>

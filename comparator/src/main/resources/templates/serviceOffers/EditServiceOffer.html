@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org"
-      lang="en">
+      lang="ro">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Offer</title>
+    <title>Editează Ofertă</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-
 <div class="container mt-4">
     <div class="header text-center mb-4">
-        <h1>Edit Offer</h1>
+        <h1>Editează Ofertă</h1>
     </div>
     <div class="card mt-4">
         <div class="card-body">
             <form th:object="${serviceDetailsDto}" method="post">
                 <input type="hidden" name="id" th:value="${serviceDetails.id}"/>
                 <div class="form-group">
-                    <label for="name">Service Name</label>
+                    <label for="name">Nume Serviciu</label>
                     <input type="text" class="form-control" id="name" th:field="*{name}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="estimatedDuration">Estimated Duration</label>
+                    <label for="estimatedDuration">Durată Estimată</label>
                     <input type="text" class="form-control" id="estimatedDuration" th:field="*{estimatedDuration}" required>
                 </div>
                 <div class="form-group">
-                    <label for="price">Price</label>
+                    <label for="price">Preț</label>
                     <input type="number" class="form-control" id="price" th:field="*{price}" required>
                 </div>
                 <div class="form-group">
-                    <label for="onlineBookingAvailability">Online Booking Availability</label>
+                    <label for="onlineBookingAvailability">Disponibilitate Rezervare Online</label>
                     <input type="text" class="form-control" id="onlineBookingAvailability" th:field="*{onlineBookingAvailability}" required>
                 </div>
                 <div class="form-group">
-                    <label for="requiredEquipment">Required Equipment</label>
+                    <label for="requiredEquipment">Echipament Necesitat</label>
                     <input type="text" class="form-control" id="requiredEquipment" th:field="*{requiredEquipment}" required>
                 </div>
                 <div class="form-group">
-                    <label for="guarantee">Guarantee</label>
+                    <label for="guarantee">Garanție</label>
                     <input type="text" class="form-control" id="guarantee" th:field="*{guarantee}" required>
                 </div>
                 <div class="form-group">
-                    <label for="approvedCertifiedLicensed">Approved Certified Licensed</label>
+                    <label for="approvedCertifiedLicensed">Aprobat / Certificat / Licențiat</label>
                     <input type="text" class="form-control" id="approvedCertifiedLicensed" th:field="*{approvedCertifiedLicensed}" required>
                 </div>
                 <div class="form-group">
-                    <label for="geographicCoverage">Geographic Coverage</label>
+                    <label for="geographicCoverage">Acoperire Geografică</label>
                     <input type="text" class="form-control" id="geographicCoverage" th:field="*{geographicCoverage}" required>
                 </div>
                 <div class="form-group">
-                    <label for="serviceOfferName">serviceOfferName</label>
+                    <label for="serviceOfferName">Nume Ofertă</label>
                     <input type="text" class="form-control" id="serviceOfferName" th:field="*{serviceOfferName}" required>
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
+                    <label for="description">Descriere</label>
                     <textarea class="form-control" id="description" th:field="*{description}" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Salvează</button>
             </form>
         </div>
     </div>

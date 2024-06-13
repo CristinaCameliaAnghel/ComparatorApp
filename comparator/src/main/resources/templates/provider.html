@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org"
-      lang="en">
+      lang="ro">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provider Dashboard</title>
+    <title>Tablou de Bord Furnizor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-
 <div class="container mt-4">
     <div class="header text-center mb-4">
-        <h1>Provider Dashboard</h1>
+        <h1>Tablou de Bord Furnizor</h1>
     </div>
     <div class="well">
-        <h2>Welcome, <span th:text="${user.fullName}"></span></h2>
+        <h2>Bine ai venit, <span th:text="${user.fullName}"></span></h2>
     </div>
 
     <div class="card mt-4">
         <div class="card-header">
-            <h3>Your Offers</h3>
+            <h3>Ofertele Tale</h3>
         </div>
         <div class="card-body">
-            <a class="btn btn-primary mb-3" th:href="@{/create-serviceOffer}">Create Offer</a>
+            <a class="btn btn-primary mb-3" th:href="@{/create-serviceOffer}">Creează Ofertă</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Estimated Duration</th>
-                    <th>Price</th>
-                    <th>Online Booking Availability</th>
-                    <th>Required Equipment</th>
-                    <th>Guarantee</th>
-                    <th>Approved Certified Licensed</th>
-                    <th>Geographic Coverage</th>
-                    <th>Description</th>
-                    <th>Feedback Stars</th>
-                    <th>Registered At</th>
-                    <th>Actions</th>
+                    <th>Nume</th>
+                    <th>Durată Estimată</th>
+                    <th>Preț</th>
+                    <th>Disponibilitate Rezervare Online</th>
+                    <th>Echipament Necesitat</th>
+                    <th>Garanție</th>
+                    <th>Furnizor certificat</th>
+                    <th>Acoperire Geografică</th>
+                    <th>Descriere</th>
+                    <th>Stele Feedback</th>
+                    <th>Înregistrat La</th>
+                    <th>Acțiuni</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,9 +57,9 @@
                     <td th:text="${service.serviceOfferName}"></td>
                     <td th:text="${service.registeredAt}"></td>
                     <td>
-                        <a class="btn btn-warning" th:href="@{/edit-serviceOffer(id=${service.id})}">Edit</a>
+                        <a class="btn btn-warning" th:href="@{/edit-serviceOffer(id=${service.id})}">Editează</a>
                         <a class="btn btn-danger" th:href="@{/delete-serviceOffer(id=${service.id})}"
-                           onclick="return confirm ('Are you sure?')">Delete</a>
+                           onclick="return confirm('Ești sigur?')">Șterge</a>
                     </td>
                 </tr>
                 </tbody>

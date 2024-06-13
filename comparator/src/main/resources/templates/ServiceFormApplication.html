@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Service Form Application</title>
+    <title>Aplicare pentru Serviciu</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Apply for Service</h1>
+    <h1 class="text-center mb-4">Aplicare pentru Serviciu</h1>
     <form th:action="@{/apply}" method="post">
         <input type="hidden" name="user.id" th:value="${userId}" />
         <input type="hidden" name="serviceDetails.id" th:value="${serviceId}" />
 
         <div class="form-group">
-            <label for="phone">Phone</label>
+            <label for="phone">Telefon</label>
             <input type="text" id="phone" name="phone" class="form-control" required>
         </div>
 
@@ -24,17 +24,17 @@
         </div>
 
         <div class="form-group">
-            <label for="address">Address</label>
+            <label for="address">Adresă</label>
             <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
         </div>
 
         <div class="form-group">
-            <label for="description">Description</label>
+            <label for="description">Descriere</label>
             <textarea id="description" name="description" class="form-control" rows="4"></textarea>
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Trimite</button>
         </div>
     </form>
 </div>

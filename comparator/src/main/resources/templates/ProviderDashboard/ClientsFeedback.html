@@ -2,23 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Client Feedback</title>
+    <title>Feedback Client</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 <div class="container mt-4">
-    <h1>Client Feedback</h1>
+    <h1>Feedback Client</h1>
     <div th:if="${#lists.isEmpty(comments)}">
-        <p>No feedback available.</p>
+        <p>Nu există feedback disponibil.</p>
     </div>
     <div th:unless="${#lists.isEmpty(comments)}">
         <ul class="list-group">
             <li class="list-group-item" th:each="comment : ${comments}">
-                <h5 th:text="${comment.serviceDetails.name}">Service Name</h5>
-                <p><em th:text="${comment.user.email}">User</em></p>
-                <p th:text="${comment.comment}">Comment</p>
-                <p>Rating: <span th:text="${comment.evaluationScore}">Rating</span></p>
+                <h5 th:text="${comment.serviceDetails.name}">Nume Serviciu</h5>
+                <p><em th:text="${comment.user.email}">Utilizator</em></p>
+                <p th:text="${comment.comment}">Comentariu</p>
+                <p>Evaluare: <span th:text="${comment.evaluationScore}">Evaluare</span></p>
             </li>
         </ul>
     </div>

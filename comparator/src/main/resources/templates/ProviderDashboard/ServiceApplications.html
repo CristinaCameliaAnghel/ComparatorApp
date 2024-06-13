@@ -1,44 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Service Applications</title>
+    <title>Aplicații pentru Servicii</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 <div class="container">
-    <h1>Service Applications</h1>
+    <h1>Aplicații pentru Servicii</h1>
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Full Name</th>
+            <th>Nume Complet</th>
             <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Description</th>
-            <th>Service Offer Name</th> <!-- Adaugă coloana pentru numele ofertei -->
-            <th>Current Status</th>
-            <th>Change Status</th>
+            <th>Telefon</th>
+            <th>Adresă</th>
+            <th>Descriere</th>
+            <th>Numele Ofertei de Serviciu</th> <!-- Adaugă coloana pentru numele ofertei -->
+            <th>Stare Curentă</th>
+            <th>Schimbă Starea</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="serviceApplication : ${serviceApplicationDtos}">
-            <td th:text="${serviceApplication.fullName}">Full Name</td>
+            <td th:text="${serviceApplication.fullName}">Nume Complet</td>
             <td th:text="${serviceApplication.email}">Email</td>
-            <td th:text="${serviceApplication.phone}">Phone</td>
-            <td th:text="${serviceApplication.address}">Address</td>
-            <td th:text="${serviceApplication.description}">Description</td>
-            <td th:text="${serviceApplication.serviceOfferName}">Service Offer Name</td> <!-- Afiseaza numele ofertei -->
-            <td th:text="${serviceApplication.status}">Current Status</td>
+            <td th:text="${serviceApplication.phone}">Telefon</td>
+            <td th:text="${serviceApplication.address}">Adresă</td>
+            <td th:text="${serviceApplication.description}">Descriere</td>
+            <td th:text="${serviceApplication.serviceOfferName}">Numele Ofertei de Serviciu</td> <!-- Afiseaza numele ofertei -->
+            <td th:text="${serviceApplication.status}">Stare Curentă</td>
             <td>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Status
+                        Selectează Stare
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='in asteptare')}">In asteptare</a>
-                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='in lucru')}">In lucru</a>
+                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='in asteptare')}">În așteptare</a>
+                        <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='in lucru')}">În lucru</a>
                         <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='aprobat')}">Aprobat</a>
                         <a class="dropdown-item" th:href="@{/updateStatus(serviceApplicationId=${serviceApplication.id}, status='respins')}">Respins</a>
                     </div>

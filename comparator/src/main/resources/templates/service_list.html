@@ -18,27 +18,26 @@
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
 <div class="container">
-    <h1>Service List</h1>
-    <h2 th:if="${selectedName != null}" th:text="'Selected Service: ' + ${selectedName}"></h2>
+    <h1 class="text-center">Lista de Servicii</h1>
+    <h2 th:if="${selectedName != null}" th:text="'Serviciul Selectat: ' + ${selectedName}"></h2>
     <form action="/compare-services" method="get">
-        <table class="table">
-            <thead>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
             <tr>
-                <th>Select</th>
+                <th>Selectare</th>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Online Booking Availability</th>
-                <th>Estimated Duration</th>
-                <th>Required Equipment</th>
-                <th>Guarantee</th>
-                <th>Approved/Certified/Licensed</th>
-                <th>Offer Name</th>
-                <th>Geographic Coverage</th>
-                <th>Service Provider</th>
-                <th>Details</th>
-
-                <th>Comments</th>
+                <th>Nume</th>
+                <th>Preț</th>
+                <th>Disponibilitate Rezervare Online</th>
+                <th>Durată Estimată</th>
+                <th>Echipament Necesar</th>
+                <th>Garanție</th>
+                <th>Aprobat/Certificat/Licențiat</th>
+                <th>Nume Ofertă</th>
+                <th>Acoperire Geografică</th>
+                <th>Furnizor Serviciu</th>
+                <th>Detalii</th>
+                <th>Comentarii</th>
             </tr>
             </thead>
             <tbody>
@@ -82,17 +81,17 @@
                 </div>
                 <div class="modal-body">
                     <p><strong>ID:</strong> <span th:text="${serviceDetails.id}"></span></p>
-                    <p><strong>Name:</strong> <span th:text="${serviceDetails.name}"></span></p>
-                    <p><strong>Price:</strong> <span th:text="${serviceDetails.price}"></span></p>
-                    <p><strong>Online Booking Availability:</strong> <span th:text="${serviceDetails.onlineBookingAvailability}"></span></p>
-                    <p><strong>Estimated Duration:</strong> <span th:text="${serviceDetails.estimatedDuration}"></span></p>
-                    <p><strong>Required Equipment:</strong> <span th:text="${serviceDetails.requiredEquipment}"></span></p>
-                    <p><strong>Guarantee:</strong> <span th:text="${serviceDetails.guarantee}"></span></p>
-                    <p><strong>Approved/Certified/Licensed:</strong> <span th:text="${serviceDetails.approvedCertifiedLicensed}"></span></p>
-                    <p><strong>serviceOfferName:</strong> <span th:text="${serviceDetails.serviceOfferName}"></span></p>
-                    <p><strong>Geographic Coverage:</strong> <span th:text="${serviceDetails.geographicCoverage}"></span></p>
-                    <p><strong>Service Provider:</strong> <span th:text="${serviceDetails.serviceProvider}"></span></p>
-                    <p><strong>Description:</strong> <span th:text="${serviceDetails.description}"></span></p>
+                    <p><strong>Nume:</strong> <span th:text="${serviceDetails.name}"></span></p>
+                    <p><strong>Preț:</strong> <span th:text="${serviceDetails.price}"></span></p>
+                    <p><strong>Disponibilitate Rezervare Online:</strong> <span th:text="${serviceDetails.onlineBookingAvailability}"></span></p>
+                    <p><strong>Durată Estimată:</strong> <span th:text="${serviceDetails.estimatedDuration}"></span></p>
+                    <p><strong>Echipament Necesar:</strong> <span th:text="${serviceDetails.requiredEquipment}"></span></p>
+                    <p><strong>Garanție:</strong> <span th:text="${serviceDetails.guarantee}"></span></p>
+                    <p><strong>Aprobat/Certificat/Licențiat:</strong> <span th:text="${serviceDetails.approvedCertifiedLicensed}"></span></p>
+                    <p><strong>Nume Ofertă:</strong> <span th:text="${serviceDetails.serviceOfferName}"></span></p>
+                    <p><strong>Acoperire Geografică:</strong> <span th:text="${serviceDetails.geographicCoverage}"></span></p>
+                    <p><strong>Furnizor Serviciu:</strong> <span th:text="${serviceDetails.serviceProvider}"></span></p>
+                    <p><strong>Descriere:</strong> <span th:text="${serviceDetails.description}"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
@@ -115,9 +114,9 @@
                 </div>
                 <div class="modal-body">
                     <div th:each="comment : ${commentsMap[serviceDetails.id]}">
-                        <p><strong>User:</strong> <span th:text="${comment.user.fullName}"></span></p>
-                        <p><strong>Comment:</strong> <span th:text="${comment.comment}"></span></p>
-                        <p><strong>Evaluation Score:</strong> <span th:text="${comment.evaluationScore}"></span></p>
+                        <p><strong>Utilizator:</strong> <span th:text="${comment.user.fullName}"></span></p>
+                        <p><strong>Comentariu:</strong> <span th:text="${comment.comment}"></span></p>
+                        <p><strong>Scor Evaluare:</strong> <span th:text="${comment.evaluationScore}"></span></p>
                         <hr/>
                     </div>
                     <div th:if="${#lists.isEmpty(commentsMap[serviceDetails.id])}">
