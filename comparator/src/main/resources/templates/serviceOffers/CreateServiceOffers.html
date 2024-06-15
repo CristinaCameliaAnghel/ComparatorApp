@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creează Ofertă</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css\style.css">
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
@@ -44,7 +45,7 @@
                     <input type="text" class="form-control" id="guarantee" th:field="*{guarantee}" required>
                 </div>
                 <div class="form-group">
-                    <label for="approvedCertifiedLicensed">Aprobat / Certificat / Licențiat</label>
+                    <label for="approvedCertifiedLicensed">Furnizor certificat</label>
                     <input type="text" class="form-control" id="approvedCertifiedLicensed" th:field="*{approvedCertifiedLicensed}" required>
                 </div>
                 <div class="form-group">

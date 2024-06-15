@@ -47,14 +47,21 @@ public class ServicesController {
         } else {
             serviceDetailsList = servicesDetailsRepository.findAll();
         }
+
+     // Adăugarea listei de servicii în model
         model.addAttribute("serviceDetailsList", serviceDetailsList);
 
-        // Map to store comments for each service
+     // Map pentru a stoca comentariile pentru fiecare serviciu
         Map<Integer, List<UserServiceComments>> commentsMap = new HashMap<>();
         for (ServiceDetails serviceDetails : serviceDetailsList) {
             commentsMap.put(serviceDetails.getId(), userServiceCommentsRepository.findByServiceDetails(serviceDetails));
         }
         model.addAttribute("commentsMap", commentsMap);
+
+     // Mesaj de eroare dacă lista de servicii este goală
+     if (serviceDetailsList.isEmpty()) {
+         model.addAttribute("noServicesMessage", "Nu există înregistrări pentru categoria selectată.");
+     }
 
         return "service_list";
     }

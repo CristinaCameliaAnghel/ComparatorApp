@@ -28,16 +28,16 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/servicii")
+  /*  @RequestMapping("/servicii")
     public String loadServiciiPage() {
         return "/products/servicii";
     }
 
-    @RequestMapping("/utilitati")
+    @RequestMapping("/utilities")
     public String loadUtilitatiPage() {
-        return "utilitati";
+        return "utilities";
     }
-
+*/
 
 
 
