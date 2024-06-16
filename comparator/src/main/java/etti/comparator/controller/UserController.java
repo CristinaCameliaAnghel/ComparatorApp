@@ -7,11 +7,9 @@ import java.util.stream.Collectors;
 import etti.comparator.Mappers.UserServiceCommentMapper;
 import etti.comparator.Mappers.UserMapper;
 import etti.comparator.Mappers.UserServiceOfferMapper;
+import etti.comparator.Mappers.UserUtilityOfferMapper;
 import etti.comparator.dto.*;
-import etti.comparator.model.ServiceDetails;
-import etti.comparator.model.User;
-import etti.comparator.model.UserServiceComments;
-import etti.comparator.model.UserServiceOffer;
+import etti.comparator.model.*;
 import etti.comparator.repositories.*;
 import etti.comparator.services.UserServiceImpl;
 import jakarta.validation.Valid;
@@ -63,6 +61,8 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -172,4 +172,9 @@ public class UserController {
         }
         return "redirect:/profile?id=" + user.getId();
     }
+
+
+
+
+
 }

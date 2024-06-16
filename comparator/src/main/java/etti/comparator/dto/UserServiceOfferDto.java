@@ -2,6 +2,7 @@ package etti.comparator.dto;
 
 import etti.comparator.model.ServiceDetails;
 import etti.comparator.model.User;
+import etti.comparator.model.UtilityDetails;
 import jakarta.persistence.*;
 
 public class UserServiceOfferDto {
@@ -79,4 +80,6 @@ public class UserServiceOfferDto {
     public void setAddress(String address) {
         this.address = address;
     }
+
+
 }

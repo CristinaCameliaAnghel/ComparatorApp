@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablou de Bord Utilizator</title>
+    <title>Tablou de Bord Utilizator - Utilități</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-
-
         .header {
             background-color: #007bff;
             color: white;
@@ -77,27 +75,25 @@
     <h2>Bine ai venit, [[${user.fullName}]]</h2>
 </div>
 <div class="container">
-
-
-    <div th:if="${userServiceOffers.isEmpty()}">
-        <p>Nu ai aplicat încă la nicio ofertă.</p>
+    <div th:if="${userUtilityOffers.isEmpty()}">
+        <p>Nu ai aplicat încă la nicio ofertă de utilități.</p>
     </div>
 
-    <div th:each="offer : ${userServiceOffers}" class="row">
+    <div th:each="offer : ${userUtilityOffers}" class="row">
         <div class="col">
-            <h3>Detalii ofertei din categoria</h3>
+            <h3>Detalii ofertei de utilități</h3>
             <div class="offer">
-                <h3 th:text="${offer.serviceDetails.name}"></h3>
-                <p><strong>Furnizor:</strong> <span th:text="${offer.serviceDetails.serviceProvider}"></span></p>
-                <p><strong>Preț:</strong> <span th:text="${offer.serviceDetails.price}"></span></p>
-                <p><strong>Durată:</strong> <span th:text="${offer.serviceDetails.estimatedDuration}"></span></p>
-                <p><strong>Disponibilitate Rezervare:</strong> <span th:text="${offer.serviceDetails.onlineBookingAvailability}"></span></p>
-                <p><strong>Nume Ofertă:</strong> <span th:text="${offer.serviceDetails.serviceOfferName}"></span></p>
-                <p><strong>Acoperire Geografică:</strong> <span th:text="${offer.serviceDetails.geographicCoverage}"></span></p>
-                <p><strong>Descriere:</strong> <span th:text="${offer.serviceDetails.description}"></span></p>
+                <h3 th:text="${offer.utilityDetails.name}"></h3>
+                <p><strong>Furnizor:</strong> <span th:text="${offer.utilityDetails.utilityProvider}"></span></p>
+                <p><strong>Preț:</strong> <span th:text="${offer.utilityDetails.price}"></span></p>
+                <p><strong>Unitate de măsură:</strong> <span th:text="${offer.utilityDetails.unitOfMeasure}"></span></p>
+                <p><strong>Nume Ofertă:</strong> <span th:text="${offer.utilityDetails.serviceOfferName}"></span></p>
+                <p><strong>Acoperire Geografică:</strong> <span th:text="${offer.utilityDetails.geographicCoverage}"></span></p>
+                <p><strong>Durată Contract:</strong> <span th:text="${offer.utilityDetails.contractDuration}"></span></p>
+                <p><strong>Descriere:</strong> <span th:text="${offer.utilityDetails.description}"></span></p>
                 <p><strong>Stare:</strong> <span th:text="${offer.status}"></span></p>
                 <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" th:data-target="'#viewCommentsModal' + ${offer.serviceDetails.id}">Vezi comentarii</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" th:data-target="'#viewCommentsModal' + ${offer.utilityDetails.id}">Vezi comentarii</button>
             </div>
         </div>
 
@@ -113,7 +109,7 @@
     </div>
 
     <!-- Modal pentru adăugare comentariu -->
-    <div th:each="offer : ${userServiceOffers}">
+    <div th:each="offer : ${userUtilityOffers}">
         <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -149,8 +145,8 @@
     </div>
 
     <!-- Modal pentru vizualizare comentarii -->
-    <div th:each="offer : ${userServiceOffers}">
-        <div class="modal fade" th:id="'viewCommentsModal' + ${offer.serviceDetails.id}" tabindex="-1" role="dialog" aria-labelledby="viewCommentsModalLabel" aria-hidden="true">
+    <div th:each="offer : ${userUtilityOffers}">
+        <div class="modal fade" th:id="'viewCommentsModal' + ${offer.utilityDetails.id}" tabindex="-1" role="dialog" aria-labelledby="viewCommentsModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -160,10 +156,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <ul class="list-group" th:id="'commentsList' + ${offer.serviceDetails.id}">
+                        <ul class="list-group" th:id="'commentsList' + ${offer.utilityDetails.id}">
                             <!-- Comentariile vor fi populate aici prin AJAX -->
                         </ul>
-                        <p class="text-center text-muted" th:id="'noCommentsMessage' + ${offer.serviceDetails.id}" style="display: none;">Nu există comentarii pentru acest serviciu.</p>
+                        <p class="text-center text-muted" th:id="'noCommentsMessage' + ${offer.utilityDetails.id}" style="display: none;">Nu există comentarii pentru acest serviciu.</p>
                     </div>
                 </div>
             </div>
@@ -175,10 +171,10 @@
     $(document).ready(function(){
         $('.btn-secondary').on('click', function() {
             var modalId = $(this).data('target');
-            var serviceDetailsId = modalId.replace('#viewCommentsModal', '');
-            $.get('/comments/' + serviceDetailsId, function(comments) {
-                var commentsList = $('#commentsList' + serviceDetailsId);
-                var noCommentsMessage = $('#noCommentsMessage' + serviceDetailsId);
+            var utilityDetailsId = modalId.replace('#viewCommentsModal', '');
+            $.get('/comments/' + utilityDetailsId, function(comments) {
+                var commentsList = $('#commentsList' + utilityDetailsId);
+                var noCommentsMessage = $('#noCommentsMessage' + utilityDetailsId);
                 commentsList.empty();
                 if (comments.length === 0) {
                     noCommentsMessage.show();

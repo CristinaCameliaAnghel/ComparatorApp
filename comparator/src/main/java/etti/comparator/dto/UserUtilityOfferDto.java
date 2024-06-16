@@ -1,32 +1,18 @@
-package etti.comparator.model;
+package etti.comparator.dto;
 
-import jakarta.persistence.*;
+import etti.comparator.model.ServiceDetails;
+import etti.comparator.model.User;
+import etti.comparator.model.UtilityDetails;
 
-@Entity
-public class UserUtilityOffer {
+public class UserUtilityOfferDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "utility_id", nullable = false)
     private UtilityDetails utilityDetails;
-
-    @Column(nullable = false)
-    private String status = "in asteptare";
-
-    @Column(columnDefinition = "TEXT")
+    private String status;
     private String description;
-
     private String email;
     private String phone;
-
-    @Column(columnDefinition = "TEXT")
     private String address;
 
     public Long getId() {
