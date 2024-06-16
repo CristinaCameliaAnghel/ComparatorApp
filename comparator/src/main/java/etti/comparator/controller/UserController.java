@@ -13,6 +13,7 @@ import etti.comparator.model.User;
 import etti.comparator.model.UserServiceComments;
 import etti.comparator.model.UserServiceOffer;
 import etti.comparator.repositories.*;
+import etti.comparator.services.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,6 +59,9 @@ public class UserController {
     private UserServiceCommentMapper userServiceCommentsMapper;
 
     @Autowired
+    private UserServiceImpl userServiceImpl;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registration")
@@ -66,12 +70,25 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/registration")
+/*  @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
         userService.save(userDto);
         model.addAttribute("message", "Inregistrat cu succes!");
         return "register";
+    }*/
+
+    @PostMapping("/registration")
+    public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
+        User existingUser = userService.findUserByEmail(userDto.getEmail());
+        if (existingUser != null) {
+            model.addAttribute("error", "Adresa de email este deja folosită.");
+            return "register";
+        }
+        userService.save(userDto);
+        model.addAttribute("message", "Inregistrat cu succes!");
+        return "register";
     }
+
 
     @GetMapping("/login")
     public String login() {

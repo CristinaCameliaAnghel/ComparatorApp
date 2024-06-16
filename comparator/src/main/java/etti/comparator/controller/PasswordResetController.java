@@ -43,7 +43,7 @@ public class PasswordResetController {
         // Generarea unei noi parole
         String newPassword = generateRandomPassword();
         user.setPassword(passwordEncoder.encode(newPassword));
-        userService.save(new UserDto(user.getEmail(), newPassword, user.getRole(), user.getFullName(), user.isActive()));
+        userService.save(new UserDto(user.getEmail(), newPassword, "USER", user.getFullName(), user.isActive()));
 
         // Trimiterea email-ului cu noua parolă
         try {

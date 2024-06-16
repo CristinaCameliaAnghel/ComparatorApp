@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Registration Form</title>
 </head>
 <body>
@@ -16,7 +16,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2 class="text-center mb-4">Formular pentru inregistrare</h2>
-            <form th:action="@{/registration}" method="post" role="form" th:object="${user}">
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+            <form th:action="@{/registration}" method="post" role="form" th:object="${user}" onsubmit="return validatePassword()">
                 <div class="form-group">
                     <label for="fullName">Nume complet:</label>
                     <input th:field="*{fullName}" type="text" class="form-control" id="fullName" name="fullname" placeholder="Enter your fullname" required>
@@ -28,9 +30,15 @@
                 <div class="form-group">
                     <label for="password">Parola:</label>
                     <input th:field="*{password}" type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    <small id="passwordHelp" class="form-text text-muted">
+                        Parola trebuie să conțină cel puțin 8 caractere, o literă mare, o literă mică și un număr.
+                    </small>
+                    <div id="passwordError" class="text-danger" style="display: none;">
+                        Parola nu respectă criteriile necesare.
+                    </div>
                 </div>
                 <div class="text-center">
-                    <input type="submit" class="btn btn-primary" value="Intregistreaza-te">
+                    <input type="submit" class="btn btn-primary" value="Inregistreaza-te">
                 </div>
             </form>
         </div>
@@ -40,5 +48,20 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    function validatePassword() {
+        const password = document.getElementById("password").value;
+        const passwordError = document.getElementById("passwordError");
+        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+        if (!regex.test(password)) {
+            passwordError.style.display = "block";
+            return false;
+        } else {
+            passwordError.style.display = "none";
+            return true;
+        }
+    }
+</script>
 </body>
 </html>
