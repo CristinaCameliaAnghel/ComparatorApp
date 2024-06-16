@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/provider-page", "/provider/requests", "/provider/clients-feedback").hasAuthority("PROVIDER")
                         .requestMatchers("/admin/providers", "/admin/users").hasAuthority("ADMIN") // Restriction for ProvidersList page
                         .requestMatchers("/registration","/ServicesComparator", "/registrationasprovider", "/css/**", "/index", "/CreateProduct", "/EditProduct",
-                                "/servicii","/utilities","/forgot-password", "/products", "services", "/service-list","/serviceOffers/CreateServiceOffers", "/serviceOffers/EditServiceOffers", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
+                                "/utility-list","/utilities","/forgot-password", "/products", "services", "/service-list","/serviceOffers/CreateServiceOffers", "/serviceOffers/EditServiceOffers", "/products/create", "/products/delete", "/products/edit", "/compare-services", "/utilitati", "/images/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

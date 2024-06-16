@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Service List</title>
+    <title>Utility List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -12,7 +12,7 @@
             pointer-events: none;
             opacity: 0.6;
         }
-         .container {
+        .container {
             max-width: 80%;
             margin: 0 auto;
         }
@@ -48,7 +48,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const compareButton = document.querySelector('.btn-success');
-            const checkboxes = document.querySelectorAll('input[name="selectedServices"]');
+            const checkboxes = document.querySelectorAll('input[name="selectedUtilities"]');
 
             function updateCompareButtonState() {
                 const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
@@ -73,57 +73,55 @@
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
 <div class="container">
-    <h1 class="header-title-custom text-center">Lista de Servicii</h1>
-    <h2 th:if="${selectedName != null}" th:text="'Categoria de servicii selectată: ' + ${selectedName}"></h2>
+    <h1 class="header-title-custom text-center">Lista de Utilități</h1>
+    <h2 th:if="${selectedName != null}" th:text="'Categoria de utilități selectată: ' + ${selectedName}"></h2>
 
     <div class="message">
         <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
             <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm.93-6.412a.903.903 0 0 1 1.852 0l-.35 3.512a.552.552 0 0 1-1.103 0l-.35-3.512z"/>
         </svg></span>
-        <p>Selectați cel puțin două servicii pentru a putea compara.</p>
+        <p>Selectați cel puțin două utilități pentru a putea compara.</p>
     </div>
 
-    <div th:if="${#lists.isEmpty(serviceDetailsList)}">
-        <p class="text-center text-danger" th:text="${noServicesMessage}"></p>
+    <div th:if="${#lists.isEmpty(utilityDetailsList)}">
+        <p class="text-center text-danger" th:text="${noUtilitiesMessage}"></p>
     </div>
 
-    <div th:if="${!#lists.isEmpty(serviceDetailsList)}">
-        <form action="/compare-services" method="get">
+    <div th:if="${!#lists.isEmpty(utilityDetailsList)}">
+        <form action="/compare-utilities" method="get">
             <table class="table table-striped table-hover">
                 <thead class="thead">
                 <tr>
                     <th>Selectare</th>
                     <th>ID</th>
                     <th>Nume</th>
+                    <th>Furnizor Utilitate</th>
                     <th>Preț</th>
-                    <th>Disponibilitate Rezervare Online</th>
-                    <th>Durată Estimată</th>
-                    <th>Echipament Necesar</th>
-                    <th>Garanție</th>
-                    <th>Furnizor certificat</th>
-                    <th>Denumire ofertă</th>
-                    <th>Acoperire geografică</th>
-                    <th>Furnizor serviciu</th>
-                    <th> </th>
+                    <th>Unitate de Măsură</th>
+                    <th>Denumire Ofertă</th>
+                    <th>Acoperire Geografică</th>
+                    <th>Durată Contractuală</th>
+                    <th>Tip Client</th>
+                    <th>Frecvență Plată</th>
+                    <th>Acțiuni</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="serviceDetails : ${serviceDetailsList}">
-                    <td><input type="checkbox" name="selectedServices" th:value="${serviceDetails.id}"></td>
-                    <td th:text="${serviceDetails.id}"></td>
-                    <td th:text="${serviceDetails.name}"></td>
-                    <td th:text="${serviceDetails.price}"></td>
-                    <td th:text="${serviceDetails.onlineBookingAvailability}"></td>
-                    <td th:text="${serviceDetails.estimatedDuration}"></td>
-                    <td th:text="${serviceDetails.requiredEquipment}"></td>
-                    <td th:text="${serviceDetails.guarantee}"></td>
-                    <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
-                    <td th:text="${serviceDetails.serviceOfferName}"></td>
-                    <td th:text="${serviceDetails.geographicCoverage}"></td>
-                    <td th:text="${serviceDetails.serviceProvider}"></td>
+                <tr th:each="utilityDetails : ${utilityDetailsList}">
+                    <td><input type="checkbox" name="selectedUtilities" th:value="${utilityDetails.id}"></td>
+                    <td th:text="${utilityDetails.id}"></td>
+                    <td th:text="${utilityDetails.name}"></td>
+                    <td th:text="${utilityDetails.utilityProvider}"></td>
+                    <td th:text="${utilityDetails.price}"></td>
+                    <td th:text="${utilityDetails.unitOfMeasure}"></td>
+                    <td th:text="${utilityDetails.serviceOfferName}"></td>
+                    <td th:text="${utilityDetails.geographicCoverage}"></td>
+                    <td th:text="${utilityDetails.contractDuration}"></td>
+                    <td th:text="${utilityDetails.customerType}"></td>
+                    <td th:text="${utilityDetails.paymentFrequency}"></td>
                     <td class="details-comments-buttons">
-                        <button type="button" class="btn btn-info" data-toggle="modal" th:data-target="'#detailsModal' + ${serviceDetails.id}">Vezi mai multe detalii</button>
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" th:data-target="'#commentsModal' + ${serviceDetails.id}">Vezi comentarii</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" th:data-target="'#detailsModal' + ${utilityDetails.id}">Vezi mai multe detalii</button>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" th:data-target="'#commentsModal' + ${utilityDetails.id}">Vezi comentarii</button>
                     </td>
                 </tr>
                 </tbody>
@@ -131,33 +129,31 @@
             <button type="submit" class="btn btn-success btn-disabled" disabled>Compara</button>
         </form>
     </div>
-
 </div>
 
 <!-- Details Modal -->
-<div th:each="serviceDetails : ${serviceDetailsList}">
-    <div class="modal fade" th:id="'detailsModal' + ${serviceDetails.id}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div th:each="utilityDetails : ${utilityDetailsList}">
+    <div class="modal fade" th:id="'detailsModal' + ${utilityDetails.id}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" th:text="'Detalii pentru ' + ${serviceDetails.name}"></h5>
+                    <h5 class="modal-title" th:text="'Detalii pentru ' + ${utilityDetails.name}"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>ID:</strong> <span th:text="${serviceDetails.id}"></span></p>
-                    <p><strong>Nume:</strong> <span th:text="${serviceDetails.name}"></span></p>
-                    <p><strong>Preț:</strong> <span th:text="${serviceDetails.price}"></span></p>
-                    <p><strong>Disponibilitate Rezervare Online:</strong> <span th:text="${serviceDetails.onlineBookingAvailability}"></span></p>
-                    <p><strong>Durată Estimată:</strong> <span th:text="${serviceDetails.estimatedDuration}"></span></p>
-                    <p><strong>Echipament Necesar:</strong> <span th:text="${serviceDetails.requiredEquipment}"></span></p>
-                    <p><strong>Garanție:</strong> <span th:text="${serviceDetails.guarantee}"></span></p>
-                    <p><strong>Aprobat/Certificat/Licențiat:</strong> <span th:text="${serviceDetails.approvedCertifiedLicensed}"></span></p>
-                    <p><strong>Nume Ofertă:</strong> <span th:text="${serviceDetails.serviceOfferName}"></span></p>
-                    <p><strong>Acoperire Geografică:</strong> <span th:text="${serviceDetails.geographicCoverage}"></span></p>
-                    <p><strong>Furnizor Serviciu:</strong> <span th:text="${serviceDetails.serviceProvider}"></span></p>
-                    <p><strong>Descriere:</strong> <span th:text="${serviceDetails.description}"></span></p>
+                    <p><strong>ID:</strong> <span th:text="${utilityDetails.id}"></span></p>
+                    <p><strong>Nume:</strong> <span th:text="${utilityDetails.name}"></span></p>
+                    <p><strong>Furnizor Utilitate:</strong> <span th:text="${utilityDetails.utilityProvider}"></span></p>
+                    <p><strong>Preț:</strong> <span th:text="${utilityDetails.price}"></span></p>
+                    <p><strong>Unitate de Măsură:</strong> <span th:text="${utilityDetails.unitOfMeasure}"></span></p>
+                    <p><strong>Denumire Ofertă:</strong> <span th:text="${utilityDetails.serviceOfferName}"></span></p>
+                    <p><strong>Acoperire Geografică:</strong> <span th:text="${utilityDetails.geographicCoverage}"></span></p>
+                    <p><strong>Durată Contractuală:</strong> <span th:text="${utilityDetails.contractDuration}"></span></p>
+                    <p><strong>Tip Client:</strong> <span th:text="${utilityDetails.customerType}"></span></p>
+                    <p><strong>Frecvență Plată:</strong> <span th:text="${utilityDetails.paymentFrequency}"></span></p>
+                    <p><strong>Descriere:</strong> <span th:text="${utilityDetails.description}"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
@@ -168,25 +164,25 @@
 </div>
 
 <!-- Comments Modal -->
-<div th:each="serviceDetails : ${serviceDetailsList}">
-    <div class="modal fade" th:id="'commentsModal' + ${serviceDetails.id}" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel" aria-hidden="true">
+<div th:each="utilityDetails : ${utilityDetailsList}">
+    <div class="modal fade" th:id="'commentsModal' + ${utilityDetails.id}" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" th:text="'Comentarii pentru ' + ${serviceDetails.name}"></h5>
+                    <h5 class="modal-title" th:text="'Comentarii pentru ' + ${utilityDetails.name}"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div th:each="comment : ${commentsMap[serviceDetails.id]}">
+                    <div th:each="comment : ${commentsMap[utilityDetails.id]}">
                         <p><strong>Utilizator:</strong> <span th:text="${comment.user.fullName}"></span></p>
                         <p><strong>Comentariu:</strong> <span th:text="${comment.comment}"></span></p>
                         <p><strong>Scor Evaluare:</strong> <span th:text="${comment.evaluationScore}"></span></p>
                         <hr/>
                     </div>
-                    <div th:if="${#lists.isEmpty(commentsMap[serviceDetails.id])}">
-                        <p>Nu există comentarii pentru acest serviciu.</p>
+                    <div th:if="${#lists.isEmpty(commentsMap[utilityDetails.id])}">
+                        <p>Nu există comentarii pentru această utilitate.</p>
                     </div>
                 </div>
                 <div class="modal-footer">
