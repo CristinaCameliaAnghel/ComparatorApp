@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Service Comparison</title>
+    <title>Comparare Utilități</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .sort-arrow {
             margin-left: 5px;
@@ -61,49 +61,49 @@
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
 <div class="container">
-    <h1 class="header-title-custom text-center">Comparație oferte</h1>
-    <h2 class="text-center">Comparați ofertele și aplicați la serviciile dorite.</h2>
+    <h1 class="header-title-custom text-center">Comparație Utilități</h1>
+    <h2 class="text-center">Comparați ofertele și aplicați la utilitățile dorite.</h2>
 
-    <div class="message">
+    <div class="message" th:if="${!isUserAuthenticated}">
         <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
             <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm.93-6.412a.903.903 0 0 1 1.852 0l-.35 3.512a.552.552 0 0 1-1.103 0l-.35-3.512z"/>
         </svg></span>
         <p>Pentru a putea aplica la ofertele dorite trebuie să fiți autentificați.</p>
     </div>
 
-    <table class="table table-striped table-hover" id="serviceTable">
+    <table class="table table-striped table-hover" id="utilityTable">
         <thead class="thead">
         <tr>
             <th id="id">Număr ofertă <span class="sort-arrow up" data-sort="id" data-direction="asc"></span><span class="sort-arrow down" data-sort="id" data-direction="desc"></span></th>
             <th id="name">Nume <span class="sort-arrow up" data-sort="name" data-direction="asc"></span><span class="sort-arrow down" data-sort="name" data-direction="desc"></span></th>
             <th id="price">Preț <span class="sort-arrow up" data-sort="price" data-direction="asc"></span><span class="sort-arrow down" data-sort="price" data-direction="desc"></span></th>
-            <th id="booking">Disponibilitate Rezervare Online <span class="sort-arrow up" data-sort="booking" data-direction="asc"></span><span class="sort-arrow down" data-sort="booking" data-direction="desc"></span></th>
-            <th id="duration">Durată Estimată <span class="sort-arrow up" data-sort="duration" data-direction="asc"></span><span class="sort-arrow down" data-sort="duration" data-direction="desc"></span></th>
-            <th id="equipment">Echipament Necesar <span class="sort-arrow up" data-sort="equipment" data-direction="asc"></span><span class="sort-arrow down" data-sort="equipment" data-direction="desc"></span></th>
-            <th id="guarantee">Garanție <span class="sort-arrow up" data-sort="guarantee" data-direction="asc"></span><span class="sort-arrow down" data-sort="guarantee" data-direction="desc"></span></th>
-            <th id="approved">Furnizor certificat<span class="sort-arrow up" data-sort="approved" data-direction="asc"></span><span class="sort-arrow down" data-sort="approved" data-direction="desc"></span></th>
-            <th id="stars">Nume Ofertă <span class="sort-arrow up" data-sort="stars" data-direction="asc"></span><span class="sort-arrow down" data-sort="stars" data-direction="desc"></span></th>
-            <th id="coverage">Acoperire Geografică <span class="sort-arrow up" data-sort="coverage" data-direction="asc"></span><span class="sort-arrow down" data-sort="coverage" data-direction="desc"></span></th>
-            <th id="serviceProvider">Furnizor Serviciu <span class="sort-arrow up" data-sort="serviceProvider" data-direction="asc"></span><span class="sort-arrow down" data-sort="serviceProvider" data-direction="desc"></span></th>
+            <th id="unitOfMeasure">Unitate de măsură <span class="sort-arrow up" data-sort="unitOfMeasure" data-direction="asc"></span><span class="sort-arrow down" data-sort="unitOfMeasure" data-direction="desc"></span></th>
+            <th id="serviceOfferName">Nume ofertă <span class="sort-arrow up" data-sort="serviceOfferName" data-direction="asc"></span><span class="sort-arrow down" data-sort="serviceOfferName" data-direction="desc"></span></th>
+            <th id="geographicCoverage">Acoperire geografică <span class="sort-arrow up" data-sort="geographicCoverage" data-direction="asc"></span><span class="sort-arrow down" data-sort="geographicCoverage" data-direction="desc"></span></th>
+            <th id="contractDuration">Durată contract <span class="sort-arrow up" data-sort="contractDuration" data-direction="asc"></span><span class="sort-arrow down" data-sort="contractDuration" data-direction="desc"></span></th>
+            <th id="customerType">Tip client <span class="sort-arrow up" data-sort="customerType" data-direction="asc"></span><span class="sort-arrow down" data-sort="customerType" data-direction="desc"></span></th>
+            <th id="paymentFrequency">Frecvența plății <span class="sort-arrow up" data-sort="paymentFrequency" data-direction="asc"></span><span class="sort-arrow down" data-sort="paymentFrequency" data-direction="desc"></span></th>
+            <th id="description">Descriere <span class="sort-arrow up" data-sort="description" data-direction="asc"></span><span class="sort-arrow down" data-sort="description" data-direction="desc"></span></th>
+            <th id="utilityProvider">Furnizor utilitate <span class="sort-arrow up" data-sort="utilityProvider" data-direction="asc"></span><span class="sort-arrow down" data-sort="utilityProvider" data-direction="desc"></span></th>
             <th>Acțiune</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="serviceDetails : ${selectedServiceDetailsList}">
-            <td th:text="${serviceDetails.id}"></td>
-            <td th:text="${serviceDetails.name}"></td>
-            <td th:text="${serviceDetails.price}"></td>
-            <td th:text="${serviceDetails.onlineBookingAvailability}"></td>
-            <td th:text="${serviceDetails.estimatedDuration}"></td>
-            <td th:text="${serviceDetails.requiredEquipment}"></td>
-            <td th:text="${serviceDetails.guarantee}"></td>
-            <td th:text="${serviceDetails.approvedCertifiedLicensed}"></td>
-            <td th:text="${serviceDetails.serviceOfferName}"></td>
-            <td th:text="${serviceDetails.geographicCoverage}"></td>
-            <td th:text="${serviceDetails.serviceProvider}"></td>
+        <tr th:each="utilityDetails : ${selectedUtilityDetailsList}">
+            <td th:text="${utilityDetails.id}"></td>
+            <td th:text="${utilityDetails.name}"></td>
+            <td th:text="${utilityDetails.price}"></td>
+            <td th:text="${utilityDetails.unitOfMeasure}"></td>
+            <td th:text="${utilityDetails.serviceOfferName}"></td>
+            <td th:text="${utilityDetails.geographicCoverage}"></td>
+            <td th:text="${utilityDetails.contractDuration}"></td>
+            <td th:text="${utilityDetails.customerType}"></td>
+            <td th:text="${utilityDetails.paymentFrequency}"></td>
+            <td th:text="${utilityDetails.description}"></td>
+            <td th:text="${utilityDetails.utilityProvider}"></td>
             <td>
                 <form th:action="@{/apply}" method="get">
-                    <input type="hidden" name="serviceId" th:value="${serviceDetails.id}"/>
+                    <input type="hidden" name="utilityId" th:value="${utilityDetails.id}"/>
                     <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
                 </form>
             </td>
@@ -126,7 +126,7 @@
 
     function sortTable(column, direction) {
         let table, rows, switching, i, x, y, shouldSwitch;
-        table = document.getElementById("serviceTable");
+        table = document.getElementById("utilityTable");
         switching = true;
 
         while (switching) {

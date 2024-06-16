@@ -1,10 +1,10 @@
 package etti.comparator.controller;
 import ch.qos.logback.core.model.Model;
-import etti.comparator.model.ServiceDetails;
-import etti.comparator.model.User;
-import etti.comparator.model.UserServiceOffer;
+import etti.comparator.model.*;
 import etti.comparator.repositories.ServicesDetailsRepository;
 import etti.comparator.repositories.UserServiceOfferRepository;
+import etti.comparator.repositories.UserUtilityOfferRepository;
+import etti.comparator.repositories.UtilitiesDetailsRepository;
 import etti.comparator.services.AuthenticationService;
 import etti.comparator.services.CustomUserDetailsService;
 import etti.comparator.services.ServiceDetailsService;
@@ -39,7 +39,13 @@ public class ComparatorController {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
+    @Autowired
+    private UtilitiesDetailsRepository utilitiesDetailsRepository;
 
+    @Autowired
+    private UserUtilityOfferRepository userUtilityOfferRepository;
+
+// servicii
     @GetMapping("/compare-services")
     public String compareServices(@RequestParam("selectedServices") List<Integer> selectedServiceIds, org.springframework.ui.Model model) {
         List<ServiceDetails> selectedServiceDetailsList = servicesDetailsRepository.findAllById(selectedServiceIds);
@@ -97,4 +103,23 @@ public class ComparatorController {
 
         return "ServiceDetails";
     }
+
+
+
+  //  utilitati
+  @GetMapping("/compare-utilities")
+  public String compareUtilities(@RequestParam("selectedUtilities") List<Integer> selectedUtilityIds, org.springframework.ui.Model model) {
+      List<UtilityDetails> selectedUtilityDetailsList = utilitiesDetailsRepository.findAllById(selectedUtilityIds);
+      model.addAttribute("selectedUtilityDetailsList", selectedUtilityDetailsList);
+      model.addAttribute("isUserAuthenticated", authenticationService.isUserWithRole("USER"));
+
+      // Pentru fiecare utilitate, găsește ofertele utilizatorilor și adaugă-le în model
+      selectedUtilityDetailsList.forEach(utility -> {
+          List<UserUtilityOffer> userUtilityOffers = userUtilityOfferRepository.findByUtilityDetails(utility);
+          model.addAttribute("userUtilityOffers" + utility.getId(), userUtilityOffers);
+      });
+
+      return "UtilitiesComparator";
+  }
+
 }
