@@ -9,17 +9,36 @@
     <title>Tablou de Bord Furnizor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css\style.css">
+    <style>
+    .header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    }
+
+    .header h1 {
+    margin: 0;
+    }
+
+    .container {
+    max-width: 1500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<div class="container mt-4">
-    <div class="header text-center mb-4">
-        <h1>Tablou de Bord Furnizor</h1>
-    </div>
-    <div class="well">
-        <h2>Bine ai venit, <span th:text="${user.fullName}"></span></h2>
-    </div>
+<div class="header">
+    <h2>Bine ai venit, [[${user.fullName}]]</h2>
+</div>
+<div class="container">
 
     <div class="card mt-4">
         <div class="card-header">

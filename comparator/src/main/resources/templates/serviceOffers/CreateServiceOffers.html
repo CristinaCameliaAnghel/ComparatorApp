@@ -26,7 +26,8 @@
                 </div>
                 <div class="form-group">
                     <label for="estimatedDuration">Durată Estimată</label>
-                    <input type="text" class="form-control" id="estimatedDuration" th:field="*{estimatedDuration}" required>
+                    <input type="text" class="form-control" id="estimatedDuration" th:field="*{estimatedDuration}"
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="price">Preț</label>
@@ -34,27 +35,87 @@
                 </div>
                 <div class="form-group">
                     <label for="onlineBookingAvailability">Disponibilitate Rezervare Online</label>
-                    <input type="text" class="form-control" id="onlineBookingAvailability" th:field="*{onlineBookingAvailability}" required>
+                    <select type="text" class="form-control" id="onlineBookingAvailability"
+                            th:field="*{onlineBookingAvailability}" required>
+                        <option value="Da">Da</option>
+                        <option value="Nu">Nu</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="requiredEquipment">Echipament Necesitat</label>
-                    <input type="text" class="form-control" id="requiredEquipment" th:field="*{requiredEquipment}" required>
+                    <select type="text" class="form-control" id="requiredEquipment" th:field="*{requiredEquipment}"
+                            required>
+                        <option value="Da">Da</option>
+                        <option value="Nu">Nu</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="guarantee">Garanție</label>
-                    <input type="text" class="form-control" id="guarantee" th:field="*{guarantee}" required>
+                    <select type="text" class="form-control" id="guarantee" th:field="*{guarantee}" required>
+                        <option value="Da">Da</option>
+                        <option value="Nu">Nu</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="approvedCertifiedLicensed">Furnizor certificat</label>
-                    <input type="text" class="form-control" id="approvedCertifiedLicensed" th:field="*{approvedCertifiedLicensed}" required>
+                    <select type="text" class="form-control" id="approvedCertifiedLicensed" th:field="*{approvedCertifiedLicensed}" required>
+                        <option value="Da">Da</option>
+                        <option value="Nu">Nu</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="geographicCoverage">Acoperire Geografică</label>
-                    <input type="text" class="form-control" id="geographicCoverage" th:field="*{geographicCoverage}" required>
+                    <select type="text" class="form-control" id="geographicCoverage" th:field="*{geographicCoverage}"
+                           required>
+                    <option value="">Selectează un județ</option>
+                    <option value="Alba">Alba</option>
+                    <option value="Arad">Arad</option>
+                    <option value="Argeș">Argeș</option>
+                    <option value="Bacău">Bacău</option>
+                    <option value="Bihor">Bihor</option>
+                    <option value="Bistrița-Năsăud">Bistrița-Năsăud</option>
+                    <option value="Botoșani">Botoșani</option>
+                    <option value="Brașov">Brașov</option>
+                    <option value="Brăila">Brăila</option>
+                    <option value="Buzău">Buzău</option>
+                    <option value="Caraș-Severin">Caraș-Severin</option>
+                    <option value="Călărași">Călărași</option>
+                    <option value="Cluj">Cluj</option>
+                    <option value="Constanța">Constanța</option>
+                    <option value="Covasna">Covasna</option>
+                    <option value="Dâmbovița">Dâmbovița</option>
+                    <option value="Dolj">Dolj</option>
+                    <option value="Galați">Galați</option>
+                    <option value="Giurgiu">Giurgiu</option>
+                    <option value="Gorj">Gorj</option>
+                    <option value="Harghita">Harghita</option>
+                    <option value="Hunedoara">Hunedoara</option>
+                    <option value="Ialomița">Ialomița</option>
+                    <option value="Iași">Iași</option>
+                    <option value="Ilfov">Ilfov</option>
+                    <option value="Maramureș">Maramureș</option>
+                    <option value="Mehedinți">Mehedinți</option>
+                    <option value="Mureș">Mureș</option>
+                    <option value="Neamț">Neamț</option>
+                    <option value="Olt">Olt</option>
+                    <option value="Prahova">Prahova</option>
+                    <option value="Satu Mare">Satu Mare</option>
+                    <option value="Sălaj">Sălaj</option>
+                    <option value="Sibiu">Sibiu</option>
+                    <option value="Suceava">Suceava</option>
+                    <option value="Teleorman">Teleorman</option>
+                    <option value="Timiș">Timiș</option>
+                    <option value="Tulcea">Tulcea</option>
+                    <option value="Vaslui">Vaslui</option>
+                    <option value="Vâlcea">Vâlcea</option>
+                    <option value="Vrancea">Vrancea</option>
+                    <option value="București">București</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="serviceOfferName">Nume Ofertă</label>
-                    <input type="text" class="form-control" id="serviceOfferName" th:field="*{serviceOfferName}" required>
+                    <input type="text" class="form-control" id="serviceOfferName" th:field="*{serviceOfferName}"
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="description">Descriere</label>

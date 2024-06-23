@@ -5,10 +5,7 @@ import etti.comparator.repositories.ServicesDetailsRepository;
 import etti.comparator.repositories.UserServiceOfferRepository;
 import etti.comparator.repositories.UserUtilityOfferRepository;
 import etti.comparator.repositories.UtilitiesDetailsRepository;
-import etti.comparator.services.AuthenticationService;
-import etti.comparator.services.CustomUserDetailsService;
-import etti.comparator.services.ServiceDetailsService;
-import etti.comparator.services.UserServiceImpl;
+import etti.comparator.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,6 +41,9 @@ public class ComparatorController {
 
     @Autowired
     private UserUtilityOfferRepository userUtilityOfferRepository;
+
+    @Autowired
+    private UtilitiesDetailsService utilitiesDetailsService;
 
 // servicii
     @GetMapping("/compare-services")
@@ -122,4 +122,38 @@ public class ComparatorController {
       return "UtilitiesComparator";
   }
 
+
+    @GetMapping("/applyUtility")
+    public String applyForUtility(@RequestParam("utilityId") int utilityId, @AuthenticationPrincipal UserDetails currentUser, org.springframework.ui.Model model) {
+        User user = userServiceImpl.findUserByEmail(currentUser.getUsername());
+        UtilityDetails utilityDetails = utilitiesDetailsService.findById(utilityId);
+
+        // Pregătește modelul pentru a fi utilizat în formularul de aplicare
+        model.addAttribute("userId", user.getId());
+        model.addAttribute("utilityId", utilityDetails.getId());
+
+        // Adaugă un obiect gol de tip UserUtilityOffer
+        model.addAttribute("userUtilityOffer", new UserUtilityOffer());
+
+        // Redirecționează către pagina de formular de aplicare
+        return "UtilityFormApplication";
+    }
+
+    @PostMapping("/applyUtility")
+    public String submitUtilityApplicationForm(@ModelAttribute UserUtilityOffer userUtilityOffer, @AuthenticationPrincipal UserDetails currentUser) {
+        // Obține user-ul autentificat
+        User user = userServiceImpl.findUserByEmail(currentUser.getUsername());
+        userUtilityOffer.setUser(user);
+
+        // Setează starea inițială și alte date implicite
+        userUtilityOffer.setStatus("in asteptare");
+
+        // Salvează entitatea UserUtilityOffer
+        userUtilityOfferRepository.save(userUtilityOffer);
+
+        // Redirecționează către o pagină de confirmare sau înapoi la pagina de utilizator
+        return "redirect:/user-page-utilities";
+    }
 }
+
+

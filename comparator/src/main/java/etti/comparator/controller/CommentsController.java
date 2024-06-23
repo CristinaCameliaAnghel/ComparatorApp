@@ -35,7 +35,7 @@ public class CommentsController {
     @PostMapping("/submit")
     public String submitComment(@ModelAttribute UserServiceCommentDto commentDTO, @AuthenticationPrincipal UserDetails currentUser) {
         User user = userRepository.findByEmail(currentUser.getUsername());
-        ServiceDetails serviceDetails = serviceDetailsService.findById(commentDTO.getOfferId());
+        ServiceDetails serviceDetails = serviceDetailsService.findById(commentDTO.getServiceId());
 
         if (serviceDetails == null) {
             throw new RuntimeException("Service not found");

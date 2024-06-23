@@ -4,12 +4,22 @@
     <title>Aplicare pentru Serviciu</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css\style.css">
+    <style>
+        .container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+    </style>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Aplicare pentru Serviciu</h1>
+<div class="container">
+    <h1 class="text-center mb-4">Contractează serviciul</h1>
     <form th:action="@{/apply}" method="post">
         <input type="hidden" name="user.id" th:value="${userId}" />
         <input type="hidden" name="serviceDetails.id" th:value="${serviceId}" />

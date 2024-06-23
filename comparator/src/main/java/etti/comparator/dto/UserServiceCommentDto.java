@@ -1,7 +1,7 @@
 package etti.comparator.dto;
 
 public class UserServiceCommentDto {
-    private int offerId;
+    private int serviceId;
     private String comment;
     private Integer evaluationScore;
 
@@ -25,12 +25,12 @@ public class UserServiceCommentDto {
         this.userName = userName;
     }
 
-    public Integer getOfferId() {
-        return offerId;
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    public void setOfferId(Integer offerId) {
-        this.offerId = offerId;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getComment() {
