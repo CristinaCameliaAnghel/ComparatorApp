@@ -22,21 +22,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="text-center mb-4">Intra in comunitatea partenerilor nostrii</h1>
+            <h1 class="text-center mb-4">Intră în comunitatea partenerilor noștri</h1>
             <form th:action="@{/registrationasprovider}" th:object="${provider}" method="post">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Enter your email" required>
+                    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Introdu emailul..." required>
                     <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 </div>
                 <div class="form-group">
                     <label for="password">Parola:</label>
-                    <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Enter your password" required>
+                    <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Introdu parola..." required>
                     <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                 </div>
                 <div class="form-group">
                     <label for="fullName">Nume partener:</label>
-                    <input type="text" class="form-control" id="fullName" th:field="*{fullName}" placeholder="Enter your full name" required>
+                    <input type="text" class="form-control" id="fullName" th:field="*{fullName}" placeholder="Introdu denumirea" required>
                     <div class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
                 </div>
                 <div class="form-group">
@@ -47,19 +47,19 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="utilities">Utilitatea furnizată:</label>
-                    <select class="form-control" id="utilities" th:field="*{utilities}">
+                    <label for="utilityName">Utilitatea furnizată:</label>
+                    <select class="form-control" id="utilityName" th:field="*{utilityName}">
                         <option value="" th:text="'Selectează o utilitate'"></option>
                         <option th:each="utility : ${utilities}" th:value="${utility.name}" th:text="${utility.name}"></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="cif">CIF:</label>
-                    <input type="text" class="form-control" id="cif" th:field="*{cif}" placeholder="Enter your CIF number" required>
+                    <input type="text" class="form-control" id="cif" th:field="*{cif}" placeholder="Introdu codul de identificare fiscală" required>
                     <div class="text-danger" th:if="${#fields.hasErrors('cif')}" th:errors="*{cif}"></div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Inregistreaza-te</button>
+                    <button type="submit" class="btn btn-primary">Înregistrează-te</button>
                 </div>
             </form>
         </div>

@@ -1,8 +1,8 @@
 package etti.comparator.Mappers;
 
-import etti.comparator.dto.UserServiceOfferDto;
+
 import etti.comparator.dto.UserUtilityOfferDto;
-import etti.comparator.model.UserServiceOffer;
+
 import etti.comparator.model.UserUtilityOffer;
 
 public class UserUtilityOfferMapper {

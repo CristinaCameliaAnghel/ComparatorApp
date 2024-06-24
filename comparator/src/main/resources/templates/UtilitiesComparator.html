@@ -78,7 +78,7 @@
             <th id="name">Nume <span class="sort-arrow up" data-sort="name" data-direction="asc"></span><span class="sort-arrow down" data-sort="name" data-direction="desc"></span></th>
             <th id="price">Preț <span class="sort-arrow up" data-sort="price" data-direction="asc"></span><span class="sort-arrow down" data-sort="price" data-direction="desc"></span></th>
             <th id="unitOfMeasure">Unitate de măsură <span class="sort-arrow up" data-sort="unitOfMeasure" data-direction="asc"></span><span class="sort-arrow down" data-sort="unitOfMeasure" data-direction="desc"></span></th>
-            <th id="serviceOfferName">Nume ofertă <span class="sort-arrow up" data-sort="serviceOfferName" data-direction="asc"></span><span class="sort-arrow down" data-sort="serviceOfferName" data-direction="desc"></span></th>
+            <th id="utilityOfferName">Nume ofertă <span class="sort-arrow up" data-sort="utilityOfferName" data-direction="asc"></span><span class="sort-arrow down" data-sort="utilityOfferName" data-direction="desc"></span></th>
             <th id="geographicCoverage">Acoperire geografică <span class="sort-arrow up" data-sort="geographicCoverage" data-direction="asc"></span><span class="sort-arrow down" data-sort="geographicCoverage" data-direction="desc"></span></th>
             <th id="contractDuration">Durată contract <span class="sort-arrow up" data-sort="contractDuration" data-direction="asc"></span><span class="sort-arrow down" data-sort="contractDuration" data-direction="desc"></span></th>
             <th id="customerType">Tip client <span class="sort-arrow up" data-sort="customerType" data-direction="asc"></span><span class="sort-arrow down" data-sort="customerType" data-direction="desc"></span></th>
@@ -94,7 +94,7 @@
             <td th:text="${utilityDetails.name}"></td>
             <td th:text="${utilityDetails.price}"></td>
             <td th:text="${utilityDetails.unitOfMeasure}"></td>
-            <td th:text="${utilityDetails.serviceOfferName}"></td>
+            <td th:text="${utilityDetails.utilityOfferName}"></td>
             <td th:text="${utilityDetails.geographicCoverage}"></td>
             <td th:text="${utilityDetails.contractDuration}"></td>
             <td th:text="${utilityDetails.customerType}"></td>
@@ -102,7 +102,7 @@
             <td th:text="${utilityDetails.description}"></td>
             <td th:text="${utilityDetails.utilityProvider}"></td>
             <td>
-                <form th:action="@{/apply}" method="get">
+                <form th:action="@{/apply-utility}" method="get">
                     <input type="hidden" name="utilityId" th:value="${utilityDetails.id}"/>
                     <button type="submit" class="btn" th:classappend="${isUserAuthenticated} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:disabled="${!isUserAuthenticated}">Aplica</button>
                 </form>

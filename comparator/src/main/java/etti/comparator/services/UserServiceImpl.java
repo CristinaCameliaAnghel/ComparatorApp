@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
             provider.setUser(user);
         }
         provider.setServiceName(providerDto.getServiceName());
-        provider.setUtilities(providerDto.getUtilities());
+        provider.setUtilityName(providerDto.getUtilityName());
         provider.setCif(providerDto.getCif());
 
         providerRepository.save(provider);

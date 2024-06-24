@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablou de Bord Utilizator - Utilități</title>
+    <title>Tablou de Bord Utilizator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css\style.css">
     <style>
+
+
         .header {
             background-color: #007bff;
             color: white;
@@ -75,24 +77,31 @@
     <h2>Bine ai venit, [[${user.fullName}]]</h2>
 </div>
 <div class="container">
+
+
     <div th:if="${userUtilityOffers.isEmpty()}">
-        <p>Nu ai aplicat încă la nicio ofertă de utilități.</p>
+        <p>Nu ai aplicat încă la nicio ofertă.</p>
     </div>
 
     <div th:each="offer : ${userUtilityOffers}" class="row">
         <div class="col">
-            <h3>Detalii ofertei de utilități</h3>
+            <h3>Detalii ofertei din categoria</h3>
             <div class="offer">
                 <h3 th:text="${offer.utilityDetails.name}"></h3>
                 <p><strong>Furnizor:</strong> <span th:text="${offer.utilityDetails.utilityProvider}"></span></p>
                 <p><strong>Preț:</strong> <span th:text="${offer.utilityDetails.price}"></span></p>
-                <p><strong>Unitate de măsură:</strong> <span th:text="${offer.utilityDetails.unitOfMeasure}"></span></p>
-                <p><strong>Nume Ofertă:</strong> <span th:text="${offer.utilityDetails.serviceOfferName}"></span></p>
+                <p><strong>Unitatea de măsură:</strong> <span th:text="${offer.utilityDetails.unitOfMeasure}"></span></p>
                 <p><strong>Acoperire Geografică:</strong> <span th:text="${offer.utilityDetails.geographicCoverage}"></span></p>
-                <p><strong>Durată Contract:</strong> <span th:text="${offer.utilityDetails.contractDuration}"></span></p>
+                <p><strong>Perioadă contract</strong> <span th:text="${offer.utilityDetails.contractDuration}"></span></p>
+                <p><strong>Nume Ofertă:</strong> <span th:text="${offer.utilityDetails.utilityOfferName}"></span></p>
+                <p><strong>Tip de consumator:</strong> <span th:text="${offer.utilityDetails.customerType}"></span></p>
+                <p><strong>Frecventă plată:</strong> <span th:text="${offer.utilityDetails.paymentFrequency}"></span></p>
                 <p><strong>Descriere:</strong> <span th:text="${offer.utilityDetails.description}"></span></p>
                 <p><strong>Stare:</strong> <span th:text="${offer.status}"></span></p>
-                <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
+                <!--         <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.id}">Adaugă părere</button>
+                 -->
+                <button type="button" class="btn" th:classappend="${offer.status == 'aprobat'} ? 'btn-primary' : 'btn-secondary btn-disabled'" th:attr="data-toggle=${offer.status == 'aprobat'} ? 'modal' : null" th:data-target="'#commentModal' + ${offer.utilityDetails.id}">Adaugă părere</button>
+
                 <button type="button" class="btn btn-secondary" data-toggle="modal" th:data-target="'#viewCommentsModal' + ${offer.utilityDetails.id}">Vezi comentarii</button>
             </div>
         </div>
@@ -110,7 +119,10 @@
 
     <!-- Modal pentru adăugare comentariu -->
     <div th:each="offer : ${userUtilityOffers}">
-        <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <!--   <div class="modal fade" th:id="'commentModal' + ${offer.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+         -->
+        <div class="modal fade" th:id="'commentModal' + ${offer.utilityDetails.id}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -120,8 +132,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/comments/submit}" method="post">
-                            <input type="hidden" name="offerId" th:value="${offer.id}">
+                        <form th:action="@{/comments/submit-for-utility}" method="post">
+                            <!--   <input type="hidden" name="offerId" th:value="${offer.id}">
+                             -->
+                            <input type="hidden" name="utilityId" th:value="${offer.utilityDetails.id}">
+
                             <div class="form-group">
                                 <label for="comment">Comentariu:</label>
                                 <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
@@ -159,7 +174,7 @@
                         <ul class="list-group" th:id="'commentsList' + ${offer.utilityDetails.id}">
                             <!-- Comentariile vor fi populate aici prin AJAX -->
                         </ul>
-                        <p class="text-center text-muted" th:id="'noCommentsMessage' + ${offer.utilityDetails.id}" style="display: none;">Nu există comentarii pentru acest serviciu.</p>
+                        <p class="text-center text-muted" th:id="'noCommentsMessage' + ${offer.utilityDetails.id}" style="display: none;">Nu există comentarii pentru această utilitate.</p>
                     </div>
                 </div>
             </div>
@@ -172,7 +187,7 @@
         $('.btn-secondary').on('click', function() {
             var modalId = $(this).data('target');
             var utilityDetailsId = modalId.replace('#viewCommentsModal', '');
-            $.get('/comments/' + utilityDetailsId, function(comments) {
+            $.get('/comments-utility/' + utilityDetailsId, function(comments) {
                 var commentsList = $('#commentsList' + utilityDetailsId);
                 var noCommentsMessage = $('#noCommentsMessage' + utilityDetailsId);
                 commentsList.empty();

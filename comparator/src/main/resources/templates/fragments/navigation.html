@@ -7,21 +7,10 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="navigation">
-
-    <!-- Buton "Contul meu" pentru utilizatori autentificați -->
-    <a class="navbar-brand" th:if="${#authentication.authenticated}"
-       th:href="@{/admin-page}"
-       sec:authorize="hasAuthority('ADMIN')">Contul meu</a>
-    <a class="navbar-brand" th:if="${#authentication.authenticated}"
-       th:href="@{/user-page}"
-       sec:authorize="hasAuthority('USER')">Contul meu</a>
-    <a class="navbar-brand" th:if="${#authentication.authenticated}"
-       th:href="@{/provider-page}"
-       sec:authorize="hasAuthority('PROVIDER')">Contul meu</a>
-
     <!-- Buton "Home" pentru utilizatori neautentificați -->
     <a class="navbar-brand" th:if="${!#authentication.authenticated}" th:href="@{/}">Home</a>
 
@@ -33,20 +22,35 @@
     <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" th:classappend="${activePage == 'index'} ? 'active' : ''">
-                <a class="nav-link" th:href="@{/index}">Acasa<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/index}">Categorii<span class="sr-only">(current)</span>
+                </a>
             </li>
-            <li class="nav-item" th:classappend="${activePage == 'utilities'} ? 'active' : ''">
+        <!--    <li class="nav-item" th:classappend="${activePage == 'utilities'} ? 'active' : ''">
                 <a class="nav-link" th:href="@{/utilities}">Utilitati</a>
             </li>
             <li class="nav-item" th:classappend="${activePage == 'services'} ? 'active' : ''">
                 <a class="nav-link" th:href="@{/services}">Servicii</a>
-            </li>
+            </li> -->
             <li class="nav-item" sec:authorize="!isAuthenticated()" th:classappend="${activePage == 'login'} ? 'active' : ''">
-                <a class="nav-link" th:href="@{/login}">Autentificare</a>
+                <a class="nav-link" th:href="@{/login}">Intră în cont</a>
             </li>
             <li class="nav-item" th:classappend="${activePage == 'registrationasprovider'} ? 'active' : ''">
-                <a class="nav-link" th:href="@{/registrationasprovider}">Devin-o partener</a>
+                <a class="nav-link" th:href="@{/registrationasprovider}">Devino partener</a>
             </li>
+
+            <li class="nav-item">
+            <!-- Buton "Contul meu" pentru utilizatori autentificați -->
+            <a class="nav-link" th:if="${#authentication.authenticated}"
+               th:href="@{/admin-page}"
+               sec:authorize="hasAuthority('ADMIN')">Contul meu</a>
+            <a class="nav-link" th:if="${#authentication.authenticated}"
+               th:href="@{/user-page}"
+               sec:authorize="hasAuthority('USER')">Serviciile mele</a>
+            <a class="nav-link" th:if="${#authentication.authenticated}"
+               th:href="@{/provider-page}"
+               sec:authorize="hasAuthority('PROVIDER')">Servicii</a>
+            </li>
+            <!-- Opțiuni vizibile doar pentru ADMIN -->
             <li class="nav-item" th:classappend="${activePage == 'admin/providers'} ? 'active' : ''" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" th:href="@{/admin/providers}">Furnizori</a>
             </li>
@@ -54,19 +58,38 @@
                 <a class="nav-link" th:href="@{/admin/users}">Clienti</a>
             </li>
             <!-- Opțiuni vizibile doar pentru PROVIDER -->
+            <li class="nav-item" th:classappend="${activePage == '/provider-utilities'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
+                <a class="nav-link" th:href="@{/provider-utilities}">Utilități</a>
+            </li>
             <li class="nav-item" th:classappend="${activePage == 'provider/requests'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
-                <a class="nav-link" th:href="@{/provider/requests}">Cereri aderare</a>
+                <a class="nav-link" th:href="@{/provider/requests}">Cereri aderare servicii</a>
+            </li>
+            <li class="nav-item" th:classappend="${activePage == 'provider/requests-utility'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
+                <a class="nav-link" th:href="@{/provider/requests-utility}">Cereri aderare utilități</a>
             </li>
             <li class="nav-item" th:classappend="${activePage == 'provider/reviews'} ? 'active' : ''" sec:authorize="hasAuthority('PROVIDER')">
                 <a class="nav-link" th:href="@{/provider/clients-feedback}">Parerile Clientilor</a>
             </li>
-        </ul>
-        <!-- Buton "Logout" pentru utilizatori autentificați -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item" th:if="${#authentication.authenticated}">
-                <a class="nav-link" th:href="@{/logout}">Logout</a>
+
+            <!-- Opțiuni vizibile doar pentru USER -->
+            <li class="nav-item" th:classappend="${activePage == '/user-page-utility'} ? 'active' : ''" sec:authorize="hasAuthority('USER')">
+                <a class="nav-link" th:href="@{/user-page-utility}">Utilitățile mele</a>
+            </li>
+            <li class="nav-item" th:classappend="${activePage == '/profile'} ? 'active' : ''" sec:authorize="hasAuthority('USER')">
+                <a class="nav-link" th:href="@{/profile}">Contul meu</a>
             </li>
         </ul>
+
+
+
+        <!-- Buton "Logout" pentru utilizatori autentificați cu rolurile ADMIN, PROVIDER sau USER -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'PROVIDER', 'USER')">
+                <a class="nav-link" th:href="@{/logout}">Ieși din cont</a>
+            </li>
+        </ul>
+
+
     </div>
 </nav>
 </body>

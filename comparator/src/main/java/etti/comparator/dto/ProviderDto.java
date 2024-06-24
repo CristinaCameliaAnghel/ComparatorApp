@@ -19,7 +19,7 @@ public class ProviderDto {
     private String fullName;
 
     private String serviceName;
-    private String utilities;
+    private String utilityName;
 
     @NotBlank(message = "CIF is mandatory")
     @Pattern(regexp = "^RO[0-9]{2,10}$", message = "CIF must start with 'RO' followed by 2 to 10 digits")
@@ -65,12 +65,12 @@ public class ProviderDto {
         this.serviceName = serviceName;
     }
 
-    public String getUtilities() {
-        return utilities;
+    public String getUtilityName() {
+        return utilityName;
     }
 
-    public void setUtilities(String utilities) {
-        this.utilities = utilities;
+    public void setUtilityName(String utilityName) {
+        this.utilityName = utilityName;
     }
 
     public String getCif() {

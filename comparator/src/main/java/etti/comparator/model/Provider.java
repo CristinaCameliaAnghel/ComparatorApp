@@ -23,17 +23,17 @@ public class Provider {
     private User user;
 
     private String serviceName;
-    private String utilities;
+    private String utilityName;
     private String cif;
 
     public Provider() {
         // Default constructor for JPA
     }
 
-    public Provider(User user, String serviceName, String utilities, String cif) {
+    public Provider(User user, String serviceName, String utilityName, String cif) {
         this.user = user;
         this.serviceName = serviceName;
-        this.utilities = utilities;
+        this.utilityName = utilityName;
         this.cif = cif;
     }
 
@@ -62,12 +62,12 @@ public class Provider {
         this.serviceName = serviceName;
     }
 
-    public String getUtilities() {
-        return utilities;
+    public String getUtilityName() {
+        return utilityName;
     }
 
-    public void setUtilities(String utilities) {
-        this.utilities = utilities;
+    public void setUtilityName(String utilityName) {
+        this.utilityName = utilityName;
     }
 
     public String getCif() {
@@ -77,4 +77,6 @@ public class Provider {
     public void setCif(String cif) {
         this.cif = cif;
     }
+
+
 }

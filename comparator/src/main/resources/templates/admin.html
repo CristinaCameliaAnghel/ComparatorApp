@@ -7,28 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablou de Bord Admin</title>
     <link rel="stylesheet" href="css\style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+                .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        </style>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
+
 <div class="header">
-    <h1>Tablou de Bord Admin</h1>
-</div>
-<div class="container">
     <h2>Bine ai venit, [[${user.getFullName()}]]</h2>
 
 </div>
-
+<div class="container">
 <h3>Lista de Servicii</h3>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">Adaugă Servicii</button>
 
 <div class="container">
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Id</th>
@@ -59,6 +75,7 @@
         </tbody>
     </table>
 </div>
+
 <!-- Controale de Paginare pentru Servicii -->
 
 <nav aria-label="Navigare Pagină">
@@ -79,12 +96,13 @@
         </li>
     </ul>
 </nav>
+</div>
 
-
+<div class="container">
 <h3>Lista de Utilități</h3>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUtilityModal">Adaugă Utilitate</button>
-<div class="container">
-    <table class="table">
+
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Id</th>

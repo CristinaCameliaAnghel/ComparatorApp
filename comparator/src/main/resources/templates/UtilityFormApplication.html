@@ -1,48 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org" lang="ro">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplicare pentru Utilitate</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Aplicare pentru Serviciu</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css\style.css">
+  <style>
+    .container {
+max-width: 800px;
+margin: 100px auto;
+padding: 20px;
+background-color: #ffffff;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  </style>
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h2 class="text-center mb-4">Formular pentru Aplicare la Utilitate</h2>
-      <form th:action="@{/applyUtility}" method="post" role="form" th:object="${userUtilityOffer}">
-        <input type="hidden" th:field="*{userId}" th:value="${userId}"/>
-        <input type="hidden" th:field="*{utilityId}" th:value="${utilityId}"/>
-        <div class="form-group">
-          <label for="description">Descriere:</label>
-          <textarea th:field="*{description}" class="form-control" id="description" name="description" rows="4" placeholder="Descrie necesitățile tale" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input th:field="*{email}" type="email" class="form-control" id="email" name="email" placeholder="Introduceți email-ul dvs." required>
-        </div>
-        <div class="form-group">
-          <label for="phone">Telefon:</label>
-          <input th:field="*{phone}" type="text" class="form-control" id="phone" name="phone" placeholder="Introduceți numărul de telefon" required>
-        </div>
-        <div class="form-group">
-          <label for="address">Adresa:</label>
-          <input th:field="*{address}" type="text" class="form-control" id="address" name="address" placeholder="Introduceți adresa" required>
-        </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Trimite aplicarea</button>
-        </div>
-      </form>
+<div class="container">
+  <h1 class="text-center mb-4">Contractează utilitatea</h1>
+  <form th:action="@{/apply-utility}" method="post">
+    <input type="hidden" name="user.id" th:value="${userId}" />
+    <input type="hidden" name="utilityDetails.id" th:value="${utilityId}" />
+
+    <div class="form-group">
+      <label for="phone">Telefon</label>
+      <input type="text" id="phone" name="phone" class="form-control" required>
     </div>
-  </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Adresă</label>
+      <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descriere</label>
+      <textarea id="description" name="description" class="form-control" rows="4"></textarea>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">Trimite</button>
+    </div>
+  </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

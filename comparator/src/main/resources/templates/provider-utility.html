@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablou de Bord Furnizor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container-custom {
+            max-width: 1500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+<div class="header">
+    <h2>Bine ai venit, [[${user.fullName}]]</h2>
+</div>
+<div class="container-custom">
+    <div th:if="${noUtilityName}">
+        <div class="alert alert-danger" role="alert">
+            Nu sunteti autorizat sa gestionati utilitati. Pentru modificari contactati <a href="mailto:admin@admin.com">admin@admin.com</a>.
+        </div>
+    </div>
+
+    <div th:if="${!noUtilityName}">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Ofertele Tale</h3>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary mb-3" th:href="@{/create-utilityOffer}">Creează Ofertă Utilitate</a>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nume</th>
+                        <th>Furnizor Utilitate</th>
+                        <th>Preț</th>
+                        <th>Unitate de Măsură</th>
+                        <th>Nume Ofertă</th>
+                        <th>Acoperire Geografică</th>
+                        <th>Durată Contract</th>
+                        <th>Tip Client</th>
+                        <th>Frecvența Plății</th>
+                        <th>Descriere</th>
+                        <th>Înregistrat La</th>
+                        <th>Acțiuni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="utility : ${userUtilities}">
+                        <td th:text="${utility.name}"></td>
+                        <td th:text="${utility.utilityProvider}"></td>
+                        <td th:text="${utility.price}"></td>
+                        <td th:text="${utility.unitOfMeasure}"></td>
+                        <td th:text="${utility.utilityOfferName}"></td>
+                        <td th:text="${utility.geographicCoverage}"></td>
+                        <td th:text="${utility.contractDuration}"></td>
+                        <td th:text="${utility.customerType}"></td>
+                        <td th:text="${utility.paymentFrequency}"></td>
+                        <td th:text="${utility.description}"></td>
+                        <td th:text="${utility.registeredAt}"></td>
+                        <td>
+                            <a class="btn btn-warning" th:href="@{/edit-utilityOffer(id=${utility.id})}">Editează</a>
+                            <a class="btn btn-danger" th:href="@{/delete-utilityOffer(id=${utility.id})}"
+                               onclick="return confirm('Ești sigur?')">Șterge</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

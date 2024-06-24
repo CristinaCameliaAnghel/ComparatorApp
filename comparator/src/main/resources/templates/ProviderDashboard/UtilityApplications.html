@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplicații pentru Utilități</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css\style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="container">
+    <h1>Aplicații pentru Utilități</h1>
+    <div th:if="${noUtilityName}">
+        <div class="alert alert-danger" role="alert">
+            Nu sunteti autorizat sa gestionati utilitati. Pentru modificari contactati <a href="mailto:admin@admin.com">admin@admin.com</a>.
+        </div>
+    </div>
+    <div th:if="${!noUtilityName}">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nume Complet</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Adresă</th>
+                    <th>Descriere</th>
+                    <th>Numele Ofertei</th>
+                    <th>Stare Curentă</th>
+                    <th>Schimbă Starea</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="utilityApplication : ${utilityApplicationDtos}">
+                    <td th:text="${utilityApplication.fullName}">Nume Complet</td>
+                    <td th:text="${utilityApplication.email}">Email</td>
+                    <td th:text="${utilityApplication.phone}">Telefon</td>
+                    <td th:text="${utilityApplication.address}">Adresă</td>
+                    <td th:text="${utilityApplication.description}">Descriere</td>
+                    <td th:text="${utilityApplication.utilityOfferName}">Numele Ofertei</td>
+                    <td th:text="${utilityApplication.status}">Stare Curentă</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Selectează Stare
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" th:href="@{/updateStatus-utility(utilityApplicationId=${utilityApplication.id}, status='in asteptare')}">În așteptare</a>
+                                <a class="dropdown-item" th:href="@{/updateStatus-utility(utilityApplicationId=${utilityApplication.id}, status='in lucru')}">În lucru</a>
+                                <a class="dropdown-item" th:href="@{/updateStatus-utility(utilityApplicationId=${utilityApplication.id}, status='aprobat')}">Aprobat</a>
+                                <a class="dropdown-item" th:href="@{/updateStatus-utility(utilityApplicationId=${utilityApplication.id}, status='respins')}">Respins</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

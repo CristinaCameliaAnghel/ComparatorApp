@@ -3,6 +3,7 @@ package etti.comparator.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user_utility_offers")
 public class UserUtilityOffer {
 
     @Id

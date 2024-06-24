@@ -18,7 +18,7 @@ public class ProviderService {
 
     public Provider saveProvider(ProviderDto providerDto) {
         User user = userRepository.findById(providerDto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
-        Provider provider = new Provider(user, providerDto.getServiceName(), providerDto.getUtilities(), providerDto.getCif());
+        Provider provider = new Provider(user, providerDto.getServiceName(), providerDto.getUtilityName(), providerDto.getCif());
         return providerRepository.save(provider);
     }
 }

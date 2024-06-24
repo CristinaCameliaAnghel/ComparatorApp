@@ -4,16 +4,15 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import etti.comparator.Mappers.UserServiceCommentMapper;
-import etti.comparator.Mappers.UserMapper;
-import etti.comparator.Mappers.UserServiceOfferMapper;
-import etti.comparator.Mappers.UserUtilityOfferMapper;
+import etti.comparator.Mappers.*;
 import etti.comparator.dto.*;
 import etti.comparator.model.*;
 import etti.comparator.repositories.*;
 import etti.comparator.services.UserServiceImpl;
+import etti.comparator.services.UtilityDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -174,7 +173,77 @@ public class UserController {
     }
 
 
+    @Autowired
+    private UtilityDetailsService utilityDetailsService;
+    @GetMapping("/apply-utility")
+    public String applyForUtility(@RequestParam("utilityId") int utilityId, @AuthenticationPrincipal UserDetails currentUser, org.springframework.ui.Model model) {
+        User user = userServiceImpl.findUserByEmail(currentUser.getUsername());
 
+        UtilityDetails utilityDetails = utilityDetailsService.findById(utilityId);
+
+        // Pregătește modelul pentru a fi utilizat în formularul de aplicare
+        model.addAttribute("userId", user.getId());
+        model.addAttribute("utilityId", utilityDetails.getId());
+        UserUtilityOffer userUtilityOffer= new UserUtilityOffer();
+        model.addAttribute("userUtilityOffer", new UserUtilityOffer());
+
+        // Redirecționează către pagina de formular de aplicare
+        return "UtilityFormApplication";
+    }
+
+
+    @Autowired
+    private UserUtilityOfferRepository userUtilityOfferRepository;
+  @PostMapping("/apply-utility")
+    public String submitApplicationFormForUtility(@ModelAttribute UserUtilityOffer userUtilityOffer, @AuthenticationPrincipal UserDetails currentUser) {
+        // Obține user-ul autentificat
+        User user = userServiceImpl.findUserByEmail(currentUser.getUsername());
+      userUtilityOffer.setUser(user);
+
+        // Setează starea inițială și alte date implicite
+      userUtilityOffer.setStatus("in asteptare");
+
+        // Salvează entitatea UserServiceOffer
+      userUtilityOfferRepository.save(userUtilityOffer);
+
+        // Redirecționează către o pagină de confirmare sau înapoi la pagina de utilizator
+        return "redirect:/user-page";
+    }
+    @GetMapping("/user-page-utility")
+    public String userPageForUtility(Model model, Principal principal) {
+        // Obține detaliile utilizatorului autentificat
+        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+        User user = userRepository.findByEmail(principal.getName());
+
+        // Obține ofertele de servicii ale utilizatorului
+        List<UserUtilityOffer> userUtilityOffers = userUtilityOfferRepository.findByUser(user);
+        List<UserUtilityOfferDto> userUtilityOfferDtoList = userUtilityOffers.stream()
+                .map(UserUtilityOfferMapper::toDto)
+                .collect(Collectors.toList());
+
+        // Adaugă utilizatorul și ofertele în model
+        model.addAttribute("user", UserMapper.toDto(user));
+        model.addAttribute("userUtilityOffers", userUtilityOfferDtoList);
+
+        // Returnează numele template-ului Thymeleaf
+        return "user-utility";
+    }
+
+
+    @Autowired
+    private UtilitiesDetailsRepository utilityDetailsRepository;
+
+    @Autowired
+    private UserUtilityCommentsRepository userUtilityCommentsRepository;
+
+    @GetMapping("/comments-utility/{utilityDetailsId}")
+    @ResponseBody
+    public List<UserUtilityCommentDto> getCommentsByUtilityDetailsId(@PathVariable int utilityDetailsId) {
+        UtilityDetails utilityDetails = utilityDetailsRepository.findById(utilityDetailsId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid utility details ID: " + utilityDetailsId));
+        List<UserUtilityComments> comments = userUtilityCommentsRepository.findByUtilityDetails(utilityDetails);
+        return comments.stream().map(UserUtilityCommentMapper::toDto).collect(Collectors.toList());
+    }
 
 
 }

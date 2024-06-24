@@ -1,17 +1,10 @@
-package etti.comparator.model;
-
-import jakarta.persistence.*;
+package etti.comparator.dto;
+import jakarta.persistence.Column;
 
 import java.util.Date;
-
-@Entity
-@Table(name="utility_details")
-public class UtilityDetails {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UtilityDetailsDto {
     private int id;
+
 
     private String name; //category
     private String utilityProvider;
@@ -28,21 +21,13 @@ public class UtilityDetails {
     private String description;
     private Date registeredAt;
 
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-
-    }
-
-    public String getUtilityProvider() {
-        return utilityProvider;
-    }
-
-    public void setUtilityProvider(String utilityProvider) {
-        this.utilityProvider = utilityProvider;
     }
 
     public String getName() {
@@ -53,6 +38,13 @@ public class UtilityDetails {
         this.name = name;
     }
 
+    public String getUtilityProvider() {
+        return utilityProvider;
+    }
+
+    public void setUtilityProvider(String utilityProvider) {
+        this.utilityProvider = utilityProvider;
+    }
 
     public double getPrice() {
         return price;
@@ -125,6 +117,4 @@ public class UtilityDetails {
     public void setRegisteredAt(Date registeredAt) {
         this.registeredAt = registeredAt;
     }
-
-
 }

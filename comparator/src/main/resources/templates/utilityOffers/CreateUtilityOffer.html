@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creează Ofertă Utilitate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+<div class="container mt-4">
+    <div class="header text-center mb-4">
+        <h1>Creează Ofertă Utilitate Nouă</h1>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <form th:action="@{/add-utilityOffer}" th:object="${utilityDetailsDto}" method="post">
+                <div class="form-group">
+                    <label for="name">Nume Utilitate</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Preț</label>
+                    <input type="number" class="form-control" id="price" th:field="*{price}" required>
+                </div>
+                <div class="form-group">
+                    <label for="unitOfMeasure">Unitate de Măsură</label>
+                    <input type="text" class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" required>
+                </div>
+                <div class="form-group">
+                    <label for="utilityOfferName">Nume Ofertă</label>
+                    <input type="text" class="form-control" id="utilityOfferName" th:field="*{utilityOfferName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="geographicCoverage">Acoperire Geografică</label>
+                    <select type="text" class="form-control" id="geographicCoverage" th:field="*{geographicCoverage}"
+                            required>
+                        <option value="">Selectează un județ</option>
+                        <option value="Alba">Alba</option>
+                        <option value="Arad">Arad</option>
+                        <option value="Argeș">Argeș</option>
+                        <option value="Bacău">Bacău</option>
+                        <option value="Bihor">Bihor</option>
+                        <option value="Bistrița-Năsăud">Bistrița-Năsăud</option>
+                        <option value="Botoșani">Botoșani</option>
+                        <option value="Brașov">Brașov</option>
+                        <option value="Brăila">Brăila</option>
+                        <option value="Buzău">Buzău</option>
+                        <option value="Caraș-Severin">Caraș-Severin</option>
+                        <option value="Călărași">Călărași</option>
+                        <option value="Cluj">Cluj</option>
+                        <option value="Constanța">Constanța</option>
+                        <option value="Covasna">Covasna</option>
+                        <option value="Dâmbovița">Dâmbovița</option>
+                        <option value="Dolj">Dolj</option>
+                        <option value="Galați">Galați</option>
+                        <option value="Giurgiu">Giurgiu</option>
+                        <option value="Gorj">Gorj</option>
+                        <option value="Harghita">Harghita</option>
+                        <option value="Hunedoara">Hunedoara</option>
+                        <option value="Ialomița">Ialomița</option>
+                        <option value="Iași">Iași</option>
+                        <option value="Ilfov">Ilfov</option>
+                        <option value="Maramureș">Maramureș</option>
+                        <option value="Mehedinți">Mehedinți</option>
+                        <option value="Mureș">Mureș</option>
+                        <option value="Neamț">Neamț</option>
+                        <option value="Olt">Olt</option>
+                        <option value="Prahova">Prahova</option>
+                        <option value="Satu Mare">Satu Mare</option>
+                        <option value="Sălaj">Sălaj</option>
+                        <option value="Sibiu">Sibiu</option>
+                        <option value="Suceava">Suceava</option>
+                        <option value="Teleorman">Teleorman</option>
+                        <option value="Timiș">Timiș</option>
+                        <option value="Tulcea">Tulcea</option>
+                        <option value="Vaslui">Vaslui</option>
+                        <option value="Vâlcea">Vâlcea</option>
+                        <option value="Vrancea">Vrancea</option>
+                        <option value="București">București</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contractDuration">Durată Contract</label>
+                    <input type="text" class="form-control" id="contractDuration" th:field="*{contractDuration}" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerType">Tip Client</label>
+                    <input type="text" class="form-control" id="customerType" th:field="*{customerType}" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentFrequency">Frecvența Plății</label>
+                    <input type="text" class="form-control" id="paymentFrequency" th:field="*{paymentFrequency}" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descriere</label>
+                    <textarea class="form-control" id="description" th:field="*{description}" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Trimite</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
